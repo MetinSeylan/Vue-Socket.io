@@ -1,0 +1,26 @@
+{
+  "name": "vue-socket.io",
+  "version": "1.0.0",
+  "description": "vuejs event system socketio implementation",
+  "main": "vue-socketio.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetinSeylan/Vue-Socket.io.git"
+  },
+  "keywords": [
+    "vuejs",
+    "socket",
+    "vue",
+    "socket",
+    "socket.io"
+  ],
+  "author": "Metin Seylan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MetinSeylan/Vue-Socket.io/issues"
+  },
+  "homepage": "https://github.com/MetinSeylan/Vue-Socket.io#readme"
+}
