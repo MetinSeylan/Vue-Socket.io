@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/MetinSeylan/Vue-Socket.io/issues"
   },
-  "homepage": "https://github.com/MetinSeylan/Vue-Socket.io#readme"
+  "homepage": "https://github.com/MetinSeylan/Vue-Socket.io#readme",
+  "dependencies": {
+    "socket.io-client": "^1.4.6"
+  }
 }
