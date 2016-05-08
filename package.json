@@ -1,7 +1,7 @@
 {
   "name": "vue-socket.io",
   "version": "1.0.0",
-  "description": "vuejs event system socketio implementation",
+  "description": "socket.io implemantation for vuejs",
   "main": "vue-socketio.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
