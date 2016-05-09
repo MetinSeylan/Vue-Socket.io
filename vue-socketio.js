@@ -14,7 +14,11 @@
                 throw new Error("[Vue-Socket.io] cannot locate connection")
             }
 
-            var socket = Socketio(connection);
+            if (typeof connection === 'string') {
+                var socket = Socketio(connection);
+            } else if (typeof connection === 'object') {
+                var socket = connection;
+            }
 
             /*
              * Wildcard support
@@ -41,18 +45,18 @@
 
             Vue.mixin({
                 created: function () {
-                    var me = this;
+                    var self = this;
                     if (this.$options.hasOwnProperty("sockets")) {
                         socket.on("*", function (emit, data) {
-                            if (me.$options.sockets.hasOwnProperty(emit)) {
-                                me.$options.sockets[emit](data);
+                            if (self.$options.sockets.hasOwnProperty(emit)) {
+                                self.$options.sockets[emit].call(self, data);
                             }
                         });
 
                         methods.forEach(function (m) {
                             socket.on(m, function (data) {
-                                if (me.$options.sockets.hasOwnProperty(m)) {
-                                    me.$options.sockets[m](data);
+                                if (self.$options.sockets.hasOwnProperty(m)) {
+                                    self.$options.sockets[m].call(self, data);
                                 }
                             });
                         });
