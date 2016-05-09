@@ -17,7 +17,7 @@ socket.io implemantation for vuejs
 ``` js
 import VueSocketio from 'vue-socket.io'; // for ES6
 
-// var VueSocketio require('vue-socket.io') // for commonjs
+// var VueSocketio = require('vue-socket.io') // for commonjs
 
 Vue.use(VueSocketio, 'http://socketserver.com:1923'); // Automaticly socket connect from url string
 
