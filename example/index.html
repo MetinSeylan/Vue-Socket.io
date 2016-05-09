@@ -16,10 +16,13 @@
 <div class="container">
 
     <div v-if="!join" id="join" class="text-center">
-        <div class="form-group">
-            <input type="text" max="12" class="form-control input-lg text-center" v-model="name" placeholder="Name">
-        </div>
-        <button @click="joinChat(name)" class="btn btn-primary btn-lg">Join Chat</button>
+        <form @submit.prevent="joinChat(name)">
+            <div class="form-group">
+                <input type="text" max="12" class="form-control input-lg text-center" v-model="name" placeholder="Name">
+            </div>
+            <button class="btn btn-primary btn-lg" type="submit">Join Chat</button>
+        </form>
+
     </div>
 
     <div v-if="join" id="group">
@@ -33,7 +36,10 @@
 
             <div class="messages">
                 <ul class="list-unstyled">
-                    <li v-for="m in messages" :class="{me: (m.name === name)}">{{m.name}} - {{m.message}}</li>
+                    <li v-for="m in messages" :class="{me: (m.name === name), clearfix: true}">
+                        <div class="name">{{m.name}}</div>
+                        <span>{{m.message}}</span>
+                    </li>
                 </ul>
             </div>
 
@@ -55,7 +61,7 @@
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.22/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.min.js"></script>
-<script src="test.js"></script>
+<script src="../vue-socketio.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

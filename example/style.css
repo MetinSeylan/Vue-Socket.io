@@ -55,6 +55,29 @@ body {
     height: 240px;
     margin: 0;
     overflow-y: scroll;
+    padding-top: 5px;
+}
+
+.chat .messages ul li .name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.chat .messages ul li {
+    margin-bottom: 10px;
+}
+
+.chat .messages ul li span {
+    border-radius: 5px !important;
+    background: #E0EDFF;
+    padding: 5px 12px;
+    font-size: 15px;
+}
+
+.chat .messages ul li.me {
+    text-align: right;
+    margin-right: 10px;
 }
 
 .chat .input {
