@@ -46,3 +46,9 @@ var vm = new Vue({
   }
 })
 ```
+
+## Example
+[Vue-Socket.io Example](http://metinseylan.com/vuesocketio/)
+
+## License
+[WTFPL](http://www.wtfpl.net/)
