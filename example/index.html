@@ -13,14 +13,17 @@
 </head>
 <body>
 
-<div class="container">
+<h1 class="text-center">Vue-Socket.io</h1>
 
+<div class="container">
     <div v-if="!join" id="join" class="text-center">
         <form @submit.prevent="joinChat(name)">
             <div class="form-group">
                 <input type="text" max="12" class="form-control input-lg text-center" v-model="name" placeholder="Name">
             </div>
             <button class="btn btn-primary btn-lg" type="submit">Join Chat</button>
+            <br>
+            <a href="https://github.com/metinseylan/vue-socket.io">Github</a>
         </form>
 
     </div>
