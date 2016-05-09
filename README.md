@@ -24,7 +24,7 @@ Vue.use(VueSocketio, 'http://socketserver.com:1923'); // Automaticly socket conn
 /*
   import socketio from 'socket.io-client';
   
-  var ioInstance socketio('http://socketserver.com:1923');
+  var ioInstance = socketio('http://socketserver.com:1923');
   
   Vue.use(VueSocketio, ioInstance); // bind custom socketio instance
 */
