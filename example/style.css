@@ -1,0 +1,63 @@
+body {
+    color: #373a3c;
+    background-color: #f9f9f9;
+}
+
+* {
+    border-radius: 0 !important;
+}
+
+.container {
+    max-width: 700px;
+    margin-top: 5%;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .05);
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 15px;
+}
+
+.users {
+    border-right: 1px solid #eee;
+    float: left;
+    width: 140px;
+}
+
+.users ul {
+    height: 250px;
+    overflow-y: scroll;
+    margin: 0;
+}
+
+.users h4 {
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+}
+
+.chat {
+    width: 528px;
+    float: left;
+    padding-left: 15px;
+    position: relative;
+    height: 278px;
+}
+
+.chat .messages ul {
+    height: 240px;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.chat .input {
+    position: absolute;
+    bottom: 0;
+}
