@@ -7,10 +7,10 @@ var messages = [];
 
 var names = [];
 
-io.on('connection', function (client) {
+io.on('connection', function(client){
 
 
-    client.on('join', function (name) {
+    client.on('join', function(name){
 
         client.join('chat');
 
@@ -24,14 +24,14 @@ io.on('connection', function (client) {
     });
 
 
-    client.on('send', function (message) {
+    client.on('send', function(message){
 
         var data = {
             name: names[client.id],
             message: message
         };
 
-        if (messages.length > 10) {
+        if(messages.length > 10){
             messages.splice(0, 10);
         }
 
@@ -42,7 +42,7 @@ io.on('connection', function (client) {
     });
 
 
-    client.on('disconnect', function () {
+    client.on('disconnect', function(){
 
         var name = names[client.id];
 
@@ -51,9 +51,10 @@ io.on('connection', function (client) {
 
         var index = users.indexOf(name);
 
-        if (index != -1) {
+        if(index!=-1){
             delete users[index];
         }
+		users = users.filter(Boolean)
 
         io.emit('users', users);
 
