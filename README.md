@@ -48,7 +48,11 @@ var vm = new Vue({
 ```
 
 ## Example
-[Vue-Socket.io Realtime Car Tracker System](http://metinseylan.com/)
+[Realtime Car Tracker System](http://metinseylan.com/)
+
+[Simple Chat App](http://metinseylan.com/vuesocketio/)
+
+
 
 ## License
 [WTFPL](http://www.wtfpl.net/)
