@@ -1,5 +1,6 @@
 # Vue-Socket.io
 socket.io implemantation for vuejs
+note: this repo for vuejs 1, vuejs 2 soon
 
 ## Install
 
