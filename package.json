@@ -1,10 +1,10 @@
 {
   "name": "vue-socket.io",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "socket.io implemantation for vuejs",
-  "main": "vue-socketio.js",
+  "main": "dist/build.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,8 @@
     "socket",
     "vue",
     "socket",
-    "socket.io"
+    "socket.io",
+	"comolokko"
   ],
   "author": "Metin Seylan",
   "license": "MIT",
@@ -25,5 +26,13 @@
   "homepage": "https://github.com/MetinSeylan/Vue-Socket.io#readme",
   "dependencies": {
     "socket.io-client": "^1.4.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "cross-env": "^2.0.0",
+    "webpack": "^1.13.2"
   }
 }

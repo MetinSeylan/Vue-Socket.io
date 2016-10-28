@@ -1,24 +1,21 @@
 # Vue-Socket.io
-socket.io implemantation for vuejs
-note: this repo for vuejs 1, vuejs 2 soon
+socket.io implemantation for Vuejs 2.0 and 1.0
 
 ## Install
 
   ``` bash
   npm install vue-socket.io --save
   ```
-  or
+  for Vue 1.0
 
   ``` bash
-  bower install vue-socket.io
+  npm install vue-socket.io@1.0.2 --save
   ```
   
 ## Usage
 
 ``` js
-import VueSocketio from 'vue-socket.io'; // for ES6
-
-// var VueSocketio = require('vue-socket.io') // for commonjs
+import VueSocketio from 'vue-socket.io';
 
 Vue.use(VueSocketio, 'http://socketserver.com:1923'); // Automaticly socket connect from url string
 
@@ -35,7 +32,7 @@ var vm = new Vue({
     connect: function(){
       console.log('socket connected')
     },
-    customEmit: function(){
+    customEmit: function(val){
       console.log('this method fired by socket server. eg: io.emit("customEmit", data)')
     }
   },
@@ -52,8 +49,6 @@ var vm = new Vue({
 [Realtime Car Tracker System](http://metinseylan.com/)
 
 [Simple Chat App](http://metinseylan.com/vuesocketio/)
-
-
 
 ## License
 [WTFPL](http://www.wtfpl.net/)
