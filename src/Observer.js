@@ -22,7 +22,7 @@ export default class{
 
         let _this = this;
 
-        ["connect", "error", "disconnect", "reconnect", "reconnect_attempt", "reconnecting", "reconnect_error", "reconnect_failed", "connect_error", "connect_timeout", "connecting", "reconnect_attempt", "ping", "pong"]
+        ["connect", "error", "disconnect", "reconnect", "reconnect_attempt", "reconnecting", "reconnect_error", "reconnect_failed", "connect_error", "connect_timeout", "connecting", "ping", "pong"]
             .forEach((value) => {
                 _this.Socket.on(value, (data) => {
                     Emitter.emit(value, data)
