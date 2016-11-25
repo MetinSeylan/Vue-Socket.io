@@ -3,7 +3,7 @@ import Emitter from './Emitter'
 
 export default {
 
-    install(Vue, connection){
+    install(Vue, ...connection){
 
         if(!connection) throw new Error("[Vue-Socket.io] cannot locate connection")
 
