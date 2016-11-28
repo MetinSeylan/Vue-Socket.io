@@ -4,11 +4,10 @@ import Socket from 'socket.io-client'
 export default class{
 
     constructor(connection) {
-
-        if(typeof connection == 'string'){
-            this.Socket = Socket(connection);
-        }else{
-            this.Socket = connection
+        if (connection.length == 1) {
+            this.Socket = Socket(connection[0]);
+        } else {
+            this.Socket = Socket(connection[0], connection[1]);
         }
 
         this.onEvent()
