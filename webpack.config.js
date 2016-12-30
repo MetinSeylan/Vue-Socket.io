@@ -8,43 +8,24 @@ module.exports = {
         library: ['VueSocketio'],
         libraryTarget: 'umd'
     },
-    resolveLoader: {
-        root: path.join(__dirname, 'node_modules'),
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel',
-                exclude: /node_modules/,
-				query: {
-				  presets: ['es2015']
-				}
-            },
-            {
-                test: /\.json$/,
-                loader: 'json'
-            }
-        ]
-    },
-    devtool: 'eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = 'source-map'
-
-    module.exports.plugins = (module.exports.plugins || []).concat([
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        }),
+    devtool: "source-map",
+    plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
             }
-        }),
-        new webpack.optimize.OccurenceOrderPlugin()
-    ])
+        })
+    ],
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    }
 }
-

@@ -45,4 +45,5 @@ export default new class {
         }
         return false;
     }
+
 }
