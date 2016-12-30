@@ -15,7 +15,7 @@ npm install vue-socket.io --save
 ```
 
 ## Usage
-##### Configration
+#### Configration
 Automaticly socket connect from url string
 ``` js
 Vue.use(VueSocketio, 'http://socketserver.com:1923');
@@ -32,7 +32,7 @@ import store from './yourstore'
 Vue.use(VueSocketio, socketio('http://socketserver.com:1923'), store);
 ```
 
-##### On Vuejs instance usage
+#### On Vuejs instance usage
 ``` js
 var vm = new Vue({
   sockets:{
@@ -52,7 +52,7 @@ var vm = new Vue({
 })
 ```
 
-##### Dynamic socket event listenlers
+#### Dynamic socket event listenlers
 Create new listenler
 ``` js
 this.$options.sockets.event_name = (data) => {
@@ -64,7 +64,7 @@ Remove exist listenler
 delete this.$options.sockets.event_name;
 ```
 
-##### Vuex Store integration
+#### Vuex Store integration
 Example store, socket mutations always have "SOCKET_" prefix
 ``` js
 import Vue from 'vue'
