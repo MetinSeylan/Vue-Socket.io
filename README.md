@@ -15,8 +15,8 @@ npm install vue-socket.io --save
 ```
 
 ## Usage
-#### Configration
-Automaticly socket connect from url string
+#### Configuration
+Automatic socket connection from an URL string
 ``` js
 Vue.use(VueSocketio, 'http://socketserver.com:1923');
 ```
@@ -40,7 +40,7 @@ var vm = new Vue({
       console.log('socket connected')
     },
     customEmit: function(val){
-      console.log('this method fired by socket server. eg: io.emit("customEmit", data)')
+      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
     }
   },
   methods: {
@@ -52,14 +52,14 @@ var vm = new Vue({
 })
 ```
 
-#### Dynamic socket event listenlers
-Create new listenler
+#### Dynamic socket event listeners
+Create a new listener
 ``` js
 this.$options.sockets.event_name = (data) => {
     console.log(data)
 }
 ```
-Remove exist listenler
+Remove existing listener
 ``` js
 delete this.$options.sockets.event_name;
 ```
