@@ -12,7 +12,7 @@ export default {
         Vue.prototype.$socket = observer.Socket;
 
         Vue.mixin({
-            beforeCreate(){
+            created(){
                 let sockets = this.$options['sockets']
 
                 this.$options.sockets = new Proxy({}, {
