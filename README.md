@@ -18,6 +18,7 @@ npm install vue-socket.io --save
 #### Configuration
 Automatic socket connection from an URL string
 ``` js
+import VueSocketio from 'vue-socket.io';
 Vue.use(VueSocketio, 'http://socketserver.com:1923');
 ```
 
