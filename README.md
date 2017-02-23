@@ -27,10 +27,16 @@ Bind custom socket.io-client instance
 Vue.use(VueSocketio, socketio('http://socketserver.com:1923'));
 ```
 
-Enable Vuex integration
+Enable Vuex integration (use mutations)
 ``` js
 import store from './yourstore'
 Vue.use(VueSocketio, socketio('http://socketserver.com:1923'), store);
+```
+
+Enable Vuex integration (use actoins)
+``` js
+import store from './yourstore'
+Vue.use(VueSocketio, socketio('http://socketserver.com:1923'), store, true);
 ```
 
 #### On Vuejs instance usage
@@ -90,6 +96,51 @@ export default new Vuex.Store({
         otherAction: ({ commit, dispatch, state }, type) => {
             return true;
         }
+    }
+})
+```
+
+Example store, socket actions always have "socket" prefix
+``` js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+const someModule = {
+  // ...
+  mutations: {
+    SOME_MUTATION: (state, payload) => {
+      // do something
+    }
+  }
+}
+
+const socketModule = {
+  state: {
+        connect: false,
+        message: null
+    },
+    mutations:{
+        CONNECT: (state,  status ) => {
+            state.connect = true;
+        },
+        USER_MESSAGE: (state,  message) => {
+            state.message = message;
+        }
+    },
+    actions: {
+        socketUserMessage: ({ commit, dispatch, state }, message) => {
+            commit(USER_MESSAGE, message);
+            commit(SOME_MUTATION, message);
+        }
+    }
+}
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+    modules: {
+      someModule,
+      socketModule
     }
 })
 ```
