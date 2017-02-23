@@ -3,11 +3,11 @@ import Emitter from './Emitter'
 
 export default {
 
-    install(Vue, connection, store){
+    install(Vue, connection, store, useActions = false){
 
         if(!connection) throw new Error("[Vue-Socket.io] cannot locate connection")
 
-        let observer = new Observer(connection, store)
+        let observer = new Observer(connection, store, useActions)
 
         Vue.prototype.$socket = observer.Socket;
 
