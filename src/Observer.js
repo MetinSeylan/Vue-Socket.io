@@ -41,8 +41,12 @@ export default class{
 
         if(type.split('_')[0].toUpperCase() === 'SOCKET'){
 
-            if(this.store._mutations[type])
-                this.store.commit(type, payload)
+            for (let namespaced in this.store._mutations) {
+                let mutation = namespaced.split('/').pop()
+
+                if (mutation === type)
+                    this.store.commit(namespaced, payload)
+            }
 
         }
 
