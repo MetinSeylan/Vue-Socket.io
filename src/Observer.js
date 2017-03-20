@@ -21,8 +21,7 @@ export default class{
         this.Socket.onevent = (packet) => {
             Emitter.emit(packet.data[0], packet.data[1]);
 
-            if(this.store) this.commitStore('SOCKET_'+packet.data[0], packet.data[1])
-
+            if(this.store) this.passToStore('SOCKET_'+packet.data[0], packet.data[1])
         };
 
         let _this = this;
@@ -31,25 +30,30 @@ export default class{
             .forEach((value) => {
                 _this.Socket.on(value, (data) => {
                     Emitter.emit(value, data);
-                    if(_this.store) _this.commitStore('SOCKET_'+value.toUpperCase(), data)
+                    if(_this.store) _this.passToStore('SOCKET_'+value.toUpperCase(), data)
                 })
             })
     }
 
 
-    commitStore(type, payload){
+    passToStore(event, payload){
+        if(!event.toUpperCase().startsWith('SOCKET_')) return
 
-        if(type.split('_')[0].toUpperCase() === 'SOCKET'){
-
-            for (let namespaced in this.store._mutations) {
-                let mutation = namespaced.split('/').pop()
-
-                if (mutation === type)
-                    this.store.commit(namespaced, payload)
-            }
-
+        for(let namespaced in this.store._mutations) {
+            let mutation = namespaced.split('/').pop()
+            if(mutation === event) this.store.commit(namespaced, payload)
         }
 
-    }
+        for(let namespaced in this.store._actions) {
+            let action = namespaced.split('/').pop()
 
+            if(!action.toLowerCase().startsWith('socket_')) continue
+
+            let camelcased = 'socket_'+event
+                    .replace('SOCKET_', '')
+                    .replace(/^([A-Z])|[\W\s_]+(\w)/g, (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase())
+
+            if(action === camelcased) this.store.dispatch(namespaced, payload)
+        }
+    }
 }
