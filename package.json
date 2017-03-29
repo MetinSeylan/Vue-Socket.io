@@ -1,6 +1,6 @@
 {
   "name": "vue-socket.io",
-  "version": "2.1.1",
+  "version": "2.1.1-a",
   "description": "socket.io implemantation for vuejs and vuex",
   "main": "dist/build.js",
   "scripts": {
