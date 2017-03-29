@@ -30,24 +30,24 @@ export default class{
             .forEach((value) => {
                 _this.Socket.on(value, (data) => {
                     Emitter.emit(value, data);
-                    if(_this.store) _this.passToStore('SOCKET_'+value.toUpperCase(), data)
+                    if(_this.store) _this.passToStore('SOCKET_'+value, data)
                 })
             })
     }
 
 
     passToStore(event, payload){
-        if(!event.toUpperCase().startsWith('SOCKET_')) return
+        if(!event.startsWith('SOCKET_')) return
 
         for(let namespaced in this.store._mutations) {
             let mutation = namespaced.split('/').pop()
-            if(mutation === event) this.store.commit(namespaced, payload)
+            if(mutation === event.toUpperCase()) this.store.commit(namespaced, payload)
         }
 
         for(let namespaced in this.store._actions) {
             let action = namespaced.split('/').pop()
 
-            if(!action.toLowerCase().startsWith('socket_')) continue
+            if(!action.startsWith('socket_')) continue
 
             let camelcased = 'socket_'+event
                     .replace('SOCKET_', '')
