@@ -6,7 +6,7 @@
 <img id="dependency_badge" src="https://www.versioneye.com/javascript/metinseylan:vue-socket.io/2.0.1/badge.svg" alt="Dependency Badge" rel="nofollow">
 <a href="https://www.npmjs.com/package/vue-socket.io"><img src="https://img.shields.io/npm/l/vue-socket.io.svg" alt="License"></a>
 
-socket.io implemantation for Vuejs 2 and Vuex
+socket.io implementation for Vuejs 2 and Vuex
 
 ## Install
 
@@ -66,7 +66,13 @@ delete this.$options.sockets.event_name;
 ```
 
 #### Vuex Store integration
-Example store, socket mutations always have "SOCKET_" prefix
+
+Socket **mutations** always have `SOCKET_` prefix.
+
+Socket **actions** always have `socket_` prefix and the socket event name is `camelCased` (ex. `SOCKET_USER_MESSAGE` => `socket_userMessage`) 
+
+You can use either one or another or both in your store. Namespaced modules are supported.
+
 ``` js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -87,8 +93,16 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        otherAction: ({ commit, dispatch, state }, type) => {
+        otherAction: (context, type) => {
             return true;
+        },
+        socket_userMessage: (context, message) => {
+            context.dispatch('newMessage', message);
+            context.commit('NEW_MESSAGE_RECEIVED', message);
+            if (message.is_important) {
+                context.dispatch('alertImportantMessage', message);
+            }
+            ...
         }
     }
 })
