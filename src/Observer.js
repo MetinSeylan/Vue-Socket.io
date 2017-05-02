@@ -21,7 +21,7 @@ export default class{
         this.Socket.onevent = (packet) => {
             Emitter.emit(packet.data[0], packet.data[1]);
 
-            if(this.store) this.passToStore('SOCKET_'+packet.data[0], packet.data[1])
+            if(this.store) this.passToStore('SOCKET_'+packet.data[0],  [ ...packet.data.slice(1)])
         };
 
         let _this = this;
