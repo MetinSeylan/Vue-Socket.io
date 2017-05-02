@@ -1,5 +1,6 @@
 import Emitter from './Emitter'
 import Socket from 'socket.io-client'
+import * as _ from 'lodash';
 
 export default class{
 
@@ -37,7 +38,7 @@ export default class{
 
 
     passToStore(event, payload){
-        if(!event.startsWith('SOCKET_')) return
+        if(!_.startsWith(event,'SOCKET_')) return
 
         for(let namespaced in this.store._mutations) {
             let mutation = namespaced.split('/').pop()
@@ -47,7 +48,7 @@ export default class{
         for(let namespaced in this.store._actions) {
             let action = namespaced.split('/').pop()
 
-            if(!action.startsWith('socket_')) continue
+            if(!_.startsWith(action,'socket_')) continue
 
             let camelcased = 'socket_'+event
                     .replace('SOCKET_', '')
