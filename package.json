@@ -29,7 +29,8 @@
   },
   "homepage": "https://github.com/MetinSeylan/Vue-Socket.io#readme",
   "dependencies": {
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6",
+    "lodash": "^4.17.4",
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
