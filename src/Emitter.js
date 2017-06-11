@@ -4,9 +4,12 @@ export default new class {
     }
 
     addListener(label, callback, vm) {
-        if(typeof callback == 'function'){
-            this.listeners.has(label) || this.listeners.set(label, []);
-            this.listeners.get(label).push({callback: callback, vm: vm});
+        if (typeof callback == 'function') {
+            if (!this.listeners.has(label)) {
+                this.listeners.set(label, []);
+            }
+
+            this.listeners.get(label).push({ callback: callback, vm: vm })
 
             return true
         }
@@ -39,7 +42,7 @@ export default new class {
 
         if (listeners && listeners.length) {
             listeners.forEach((listener) => {
-                listener.callback.call(listener.vm,...args)
+                listener.callback.call(listener.vm, ...args)
             });
             return true;
         }

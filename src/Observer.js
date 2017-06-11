@@ -1,27 +1,35 @@
 import Emitter from './Emitter'
 import Socket from 'socket.io-client'
 
-export default class{
+export default class {
 
     constructor(connection, store) {
 
-        if(typeof connection == 'string'){
+        if (typeof connection == 'string') {
             this.Socket = Socket(connection);
-        }else{
+        } else {
             this.Socket = connection
         }
 
-        if(store) this.store = store;
+        if (store) this.store = store;
 
         this.onEvent()
 
     }
 
-    onEvent(){
+    onEvent() {
         this.Socket.onevent = (packet) => {
-            Emitter.emit(packet.data[0], packet.data[1]);
+            let custom = Emitter.emit(packet.data[0], packet.data[1]);
 
-            if(this.store) this.passToStore('SOCKET_'+packet.data[0],  [ ...packet.data.slice(1)])
+            // user has not registered a handler for this event
+            // perhaps its needed elsewhere, eg. a library
+            // so emit the event locally
+            if (!custom) {
+                let onevent = this.Socket.onevent;
+                onevent.call(this, packet);
+            }
+
+            if (this.store) this.passToStore(packet.data[0], [...packet.data.slice(1)])
         };
 
         let _this = this;
@@ -30,30 +38,34 @@ export default class{
             .forEach((value) => {
                 _this.Socket.on(value, (data) => {
                     Emitter.emit(value, data);
-                    if(_this.store) _this.passToStore('SOCKET_'+value, data)
+                    if (_this.store) _this.passToStore(value, data)
                 })
             })
     }
 
 
-    passToStore(event, payload){
-        if(!event.startsWith('SOCKET_')) return
+    passToStore(event, payload) {
+        this.passToMutation(event, payload);
+        this.passToAction(event, payload);
+    }
 
-        for(let namespaced in this.store._mutations) {
+    passToMutation(event, payload) {
+        for (let namespaced in this.store._mutations) {
             let mutation = namespaced.split('/').pop()
-            if(mutation === event.toUpperCase()) this.store.commit(namespaced, payload)
-        }
 
-        for(let namespaced in this.store._actions) {
+            if (mutation === `SOCKET_ ${event}`.toUpperCase()) {
+                this.store.commit(namespaced, payload)
+            }
+        }
+    }
+
+    passToAction(event, payload) {
+        for (let namespaced in this.store._actions) {
             let action = namespaced.split('/').pop()
 
-            if(!action.startsWith('socket_')) continue
-
-            let camelcased = 'socket_'+event
-                    .replace('SOCKET_', '')
-                    .replace(/^([A-Z])|[\W\s_]+(\w)/g, (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase())
-
-            if(action === camelcased) this.store.dispatch(namespaced, payload)
+            if (action === `socket_${event}`) {
+                this.store.dispatch(namespaced, payload)
+            }
         }
     }
 }
