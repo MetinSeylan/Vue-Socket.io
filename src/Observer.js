@@ -44,7 +44,7 @@ export default class{
 
         for(let namespaced in this.store._mutations) {
             let mutation = namespaced.split('/').pop()
-            if(mutation === event.toUpperCase()) this.store.commit(namespaced, payload)
+            if(mutation === event.replace(/\W/g, '_').toUpperCase()) this.store.commit(namespaced, payload)
         }
 
         for(let namespaced in this.store._actions) {
