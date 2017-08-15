@@ -18,7 +18,10 @@ export default class{
     }
 
     onEvent(){
+        var super_onevent = this.Socket.onevent;
         this.Socket.onevent = (packet) => {
+            super_onevent.call(this.Socket, packet);
+
             Emitter.emit(packet.data[0], packet.data[1]);
 
             if(this.store) this.passToStore('SOCKET_'+packet.data[0],  [ ...packet.data.slice(1)])
