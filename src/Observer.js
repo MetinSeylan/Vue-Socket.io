@@ -7,6 +7,8 @@ export default class{
 
         if(typeof connection == 'string'){
             this.Socket = Socket(connection);
+        }else if(connection.url){
+            this.Socket = Socket(connection.url, {path: connection.path ? connection.path : '/socket.io'});
         }else{
             this.Socket = connection
         }
