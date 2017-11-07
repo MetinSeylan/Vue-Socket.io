@@ -43,7 +43,7 @@ export default class{
         if(!event.startsWith('SOCKET_')) return
 
         for(let namespaced in this.store._mutations) {
-            let mutation = namespaced.split('/').pop()
+            let mutation = ('SOCKET_' + namespaced.replace('SOCKET_','')).toUpperCase();
             if(mutation === event.toUpperCase()) this.store.commit(namespaced, payload)
         }
 
