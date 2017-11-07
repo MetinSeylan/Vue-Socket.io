@@ -18,13 +18,10 @@ export default class{
     }
 
     onEvent(){
-        var super_onevent = this.Socket.onevent;
         this.Socket.onevent = (packet) => {
-            super_onevent.call(this.Socket, packet);
-
             Emitter.emit(packet.data[0], packet.data[1]);
 
-            if(this.store) this.passToStore('SOCKET_'+packet.data[0],  [ ...packet.data.slice(1)])
+            if(this.store) this.passToStore('SOCKET_'+packet.data[0], packet.data[1])
         };
 
         let _this = this;
@@ -40,6 +37,7 @@ export default class{
 
 
     passToStore(event, payload){
+		
         if(!event.startsWith('SOCKET_')) return
 
         for(let namespaced in this.store._mutations) {
@@ -48,13 +46,13 @@ export default class{
         }
 
         for(let namespaced in this.store._actions) {
-            let action = namespaced.split('/').pop()
+            let action = ('SOCKET_' + namespaced.replace('SOCKET_','')).toUpperCase();
 
             if(!action.startsWith('socket_')) continue
 
             let camelcased = 'socket_'+event
                     .replace('SOCKET_', '')
-                    .replace(/^([A-Z])|[\W\s_]+(\w)/g, (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase())
+                    .replace(/^([A-Z])|([^a-zA-Z0-9/]|\s)+(\w)/g, (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase())
 
             if(action === camelcased) this.store.dispatch(namespaced, payload)
         }
