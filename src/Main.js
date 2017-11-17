@@ -35,6 +35,31 @@ export default {
                     }
                 })
 
+                this.$options.multisockets = new Proxy({}, {
+                  deleteProperty: (target, key) => {
+                    Object.keys(this.$options.multisockets[key]).forEach(item  => {
+                      Emitter.removeListener(item, this.$options.multisockets[key][item], this)
+                    })
+                    delete target.key;
+                    return true
+                  }
+                })
+
+                Object.keys(connection).forEach(object => {
+                    this.$options.multisockets[object] = new Proxy({}, {
+                      set: (target, key, value) => {
+                        Emitter.addListener(key, value, this)
+                        target[key] = value
+                        return true;
+                      },
+                      deleteProperty: (target, key) => {
+                        Emitter.removeListener(key, this.$options.multisockets[object][key], this)
+                        delete target.key;
+                        return true
+                      }
+                    })
+                })
+
                 if(sockets){
                     Object.keys(sockets).forEach((key) => {
                         this.$options.sockets[key] = sockets[key];

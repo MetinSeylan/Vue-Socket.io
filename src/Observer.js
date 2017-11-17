@@ -31,6 +31,7 @@ export default class{
 
     onEventWithKey(socket, key){
       var super_onevent = socket.onevent;
+      console.log('super event', super_onevent)
       socket.onevent = (packet) => {
         super_onevent.call(socket, packet);
 
