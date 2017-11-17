@@ -9,7 +9,14 @@ export default {
 
         let observer = new Observer(connection, store)
 
-        Vue.prototype.$socket = observer.Socket;
+        if(typeof connection == 'object'){
+          Vue.prototype.$socket = []
+          Object.keys(connection).forEach(key => {
+            Vue.prototype.$socket[key] = observer.Sockets[key];
+          })
+        }else{
+          Vue.prototype.$socket = observer.Socket;
+        }
 
         Vue.mixin({
             created(){
