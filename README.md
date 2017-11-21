@@ -107,6 +107,39 @@ export default new Vuex.Store({
     }
 })
 ```
+In case of namespaced Vuex module, your code should look like this :
+
+*File : module.js*
+``` js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+    namespaced: true,
+    state: {
+        action: 0,
+        message: null
+    },
+    mutations:{
+        SOCKET_MESSAGE: (state,  message) => {
+            state.message = message;
+            // This code will fire if an event named 'module/message' is received
+        }
+    },
+    actions: {
+        otherAction: (context, type) => {
+            return true;
+        }
+        socket_actionListener: (state) => {
+            console.log('Received module/actionListener event !!!');
+            state.action ++;
+            // This code will fire if an event named 'module/actionListener' is received
+        }
+    }
+})
+```
 
 ## Example
 [Realtime Car Tracker System](http://metinseylan.com/)
