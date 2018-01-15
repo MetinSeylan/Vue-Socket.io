@@ -35,6 +35,8 @@ Vue.use(VueSocketio, socketio('http://socketserver.com:1923'), store);
 
 #### On Vuejs instance usage
 ``` js
+import Vue from 'vue'
+
 var vm = new Vue({
   sockets:{
     connect: function(){
@@ -47,7 +49,7 @@ var vm = new Vue({
   methods: {
     clickButton: function(val){
         // $socket is socket.io-client instance
-        this.$socket.emit('emit_method', val);
+        (new Vue()).$socket.emit('emit_method', val);
     }
   }
 })
