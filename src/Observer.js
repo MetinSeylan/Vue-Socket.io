@@ -22,7 +22,7 @@ export default class{
         this.Socket.onevent = (packet) => {
             super_onevent.call(this.Socket, packet);
 
-            Emitter.emit(packet.data[0], packet.data[1]);
+            Emitter.emit.apply(Emitter, packet.data);
 
             if(this.store) this.passToStore('SOCKET_'+packet.data[0],  [ ...packet.data.slice(1)])
         };
