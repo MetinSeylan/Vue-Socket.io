@@ -19,12 +19,14 @@ export default {
                 Object.defineProperty(this.$options.sockets, 'on', {
                     value: (label, callback) => {
                         Emitter.addListener(label, callback, this);
+                        this.$options.sockets[label] = callback;
                     }
                 });
 
                 Object.defineProperty(this.$options.sockets, 'off', {
                     value: (label, callback) => {
                         Emitter.removeListener(label, callback, this);
+                        delete this.$options.sockets[label];
                     }
                 });
 
@@ -40,6 +42,7 @@ export default {
                 if(sockets){
                     Object.keys(sockets).forEach((key) => {
                         Emitter.removeListener(key, sockets[key], this);
+                        delete this.$options.sockets[key];
                     });
                 }
             }
