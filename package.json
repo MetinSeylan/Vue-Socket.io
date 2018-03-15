@@ -2,7 +2,7 @@
   "name": "vue-socket.io",
   "version": "2.1.1-b",
   "description": "socket.io implemantation for vuejs and vuex",
-  "main": "src/Main.js",
+  "main": "dist/build.js",
   "scripts": {
     "build": "webpack --progress --hide-modules"
   },
