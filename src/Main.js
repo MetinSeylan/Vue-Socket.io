@@ -15,22 +15,22 @@ export default {
             created(){
                 let sockets = this.$options['sockets']
 
-                this.$options.sockets = new Proxy({}, {
-                    set: (target, key, value) => {
-                        Emitter.addListener(key, value, this)
-                        target[key] = value
-                        return true;
-                    },
-                    deleteProperty: (target, key) => {
-                        Emitter.removeListener(key, this.$options.sockets[key], this)
-                        delete target.key;
-                        return true
+                // define on and off as non-enumerable properties
+                Object.defineProperty(this.$options.sockets, 'on', {
+                    value: (label, callback) => {
+                        Emitter.addListener(label, callback, this);
                     }
-                })
+                });
+
+                Object.defineProperty(this.$options.sockets, 'off', {
+                    value: (label, callback) => {
+                        Emitter.removeListener(label, callback, this);
+                    }
+                });
 
                 if(sockets){
                     Object.keys(sockets).forEach((key) => {
-                        this.$options.sockets[key] = sockets[key];
+                        Emitter.addListener(key, sockets[key], this);
                     });
                 }
             },
@@ -39,7 +39,7 @@ export default {
 
                 if(sockets){
                     Object.keys(sockets).forEach((key) => {
-                        delete this.$options.sockets[key]
+                        Emitter.removeListener(key, sockets[key], this);
                     });
                 }
             }
