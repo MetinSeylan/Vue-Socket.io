@@ -15,6 +15,10 @@ export default {
             created(){
                 let sockets = this.$options['sockets']
 
+                if (!this.$options.sockets) {
+                    this.$options.sockets = {};
+                }
+
                 // define on and off as non-enumerable properties
                 Object.defineProperty(this.$options.sockets, 'on', {
                     value: (label, callback) => {
