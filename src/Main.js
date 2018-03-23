@@ -3,16 +3,16 @@ import Emitter from './Emitter'
 
 export default {
 
-    install(Vue, connection, store){
+    install(Vue, connection, store) {
 
-        if(!connection) throw new Error("[Vue-Socket.io] cannot locate connection")
+        if (!connection) throw new Error("[Vue-Socket.io] cannot locate connection")
 
         let observer = new Observer(connection, store)
 
         Vue.prototype.$socket = observer.Socket;
 
         Vue.mixin({
-            created(){
+            created() {
                 let sockets = this.$options['sockets']
 
                 this.$options.sockets = new Proxy({}, {
@@ -28,16 +28,16 @@ export default {
                     }
                 })
 
-                if(sockets){
+                if (sockets) {
                     Object.keys(sockets).forEach((key) => {
                         this.$options.sockets[key] = sockets[key];
                     });
                 }
             },
-            beforeDestroy(){
+            beforeDestroy() {
                 let sockets = this.$options['sockets']
 
-                if(sockets){
+                if (sockets) {
                     Object.keys(sockets).forEach((key) => {
                         delete this.$options.sockets[key]
                     });
