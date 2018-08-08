@@ -24,7 +24,7 @@ export default class {
 
             Emitter.emit.apply(Emitter, packet.data);
 
-            if (this.store) this.passToStore('SOCKET_' + packet.data[0], [...packet.data.slice(1)])
+            if (this.store) this.passToStore('SOCKET_' + packet.data[0].replace(/\W/g, '_'), [...packet.data.slice(1)])
         };
 
         let _this = this;
