@@ -1,0 +1,43 @@
+{
+  "name": "vue-socket.io",
+  "author": "Metin Seylan <metinsyln@gmail.com>",
+  "version": "3.0.0",
+  "description": "socket.io implemantation for vuejs and vuex",
+  "main": "dist/vue-socketio.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetinSeylan/Vue-Socket.io.git"
+  },
+  "keywords": [
+    "vuejs",
+    "socket",
+    "vue",
+    "socket.io",
+    "websocket",
+    "socket.io-client",
+    "realtime",
+    "flux",
+    "vuex",
+    "redux"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MetinSeylan/Vue-Socket.io/issues"
+  },
+  "homepage": "https://github.com/MetinSeylan/Vue-Socket.io",
+  "dependencies": {
+    "socket.io-client": "^2.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "cross-env": "^5.2.0",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
