@@ -1,23 +1,17 @@
 .DS_Store
-node_modules
-# dist
-
-# local env files
-.env.local
-.env.*.local
-*.map
-
-# Log files
+src/
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
+*.map
 
 # Editor directories and files
-.bitmap
 .idea
 .vscode
+.bitmap
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+.github/

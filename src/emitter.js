@@ -3,9 +3,12 @@ import Logger from './logger';
 export default class EventEmitter{
 
     constructor(vuex = {}){
-        Logger.info(vuex ? `Vuex adapter active` : `Vuex adapter disabled`);
+        Logger.info(vuex ? `Vuex adapter enabled` : `Vuex adapter disabled`);
+        Logger.info(vuex.mutationPrefix ? `Vuex socket mutations enabled` : `Vuex socket mutations disabled`);
+        Logger.info(vuex ? `Vuex socket actions enabled` : `Vuex socket actions disabled`);
         this.store = vuex.store;
-        this.prefix = vuex.prefix ? vuex.prefix : 'SOCKET_';
+        this.actionPrefix = vuex.actionPrefix ? vuex.actionPrefix : 'SOCKET_';
+        this.mutationPrefix = vuex.mutationPrefix;
         this.listeners = new Map();
     }
 
@@ -62,19 +65,19 @@ export default class EventEmitter{
      * @param event
      * @param args
      */
-    emit(event, ...args){
+    emit(event, args){
 
         if(this.listeners.has(event)){
 
-            Logger.info(`Broadcasting: #${event}, Data:`, ...args);
+            Logger.info(`Broadcasting: #${event}, Data:`, args);
 
             this.listeners.get(event).forEach((listener) => {
-                listener.callback.call(listener.component, ...args)
+                listener.callback.call(listener.component, args);
             });
 
         }
 
-        this.dispatchStore(event, ...args)
+        this.dispatchStore(event, args);
 
     }
 
@@ -84,7 +87,7 @@ export default class EventEmitter{
      * @param event
      * @param args
      */
-    dispatchStore(event, ...args){
+    dispatchStore(event, args){
 
         if(this.store && this.store._actions){
 
@@ -92,11 +95,29 @@ export default class EventEmitter{
 
                 let action = key.split('/').pop();
 
-                if(action === this.prefix+event) {
+                if(action === this.actionPrefix+event) {
 
-                    Logger.info(`Dispatching Action: ${action}, Data:`, ...args);
+                    Logger.info(`Dispatching Action: ${action}, Data:`, args);
 
-                    this.store.dispatch(action, ...args);
+                    this.store.dispatch(action, args);
+
+                }
+
+            }
+
+            if(this.mutationPrefix) {
+
+                for (let key in this.store._mutations) {
+
+                    let mutation = key.split('/').pop();
+
+                    if(mutation === this.mutationPrefix+event) {
+
+                        Logger.info(`Commiting Mutation: ${mutation}, Data:`, args);
+
+                        this.store.commit(mutation, args);
+
+                    }
 
                 }
 

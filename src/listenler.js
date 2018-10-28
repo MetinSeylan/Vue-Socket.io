@@ -31,15 +31,21 @@ export default class VueSocketIOListenler {
      * Listening all socket.io events
      */
     register(){
-        this.io.onevent = (packet) => this.onEvent(packet.data[0], packet.data[1]);
+        this.io.onevent = (packet) => {
+            let [event, ...args] = packet.data;
+
+            if(args.length === 1) args = args[0];
+
+            this.onEvent(event, args)
+        };
         VueSocketIOListenler.staticEvents.forEach(event => this.io.on(event, () => this.onEvent(event)))
     }
 
     /**
      * Broadcast all events to vuejs environment
      */
-    onEvent(event, data = {}){
-        this.emitter.emit(event, data);
+    onEvent(event, args){
+        this.emitter.emit(event, args);
     }
 
 }
