@@ -57,6 +57,8 @@ vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex
 
 #### 🌈 Component Level Usage
 
+<p>if you want listen socket events from component side, you have to add `sockets` object in Vue component, and every function will start listen events, depends on object key</p>
+
 ``` javascript
 new Vue({
     sockets: {
@@ -68,9 +70,9 @@ new Vue({
         }
     },
     methods: {
-        clickButton: function (val) {
+        clickButton: function (data) {
             // $socket is socket.io-client instance
-            this.$socket.emit('emit_method', val);
+            this.$socket.emit('emit_method', data);
         }
     }
 })
