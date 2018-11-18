@@ -12,3 +12,15 @@
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/npm/l/vue-socket.io.svg?style=flat-square"/></a>
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg?style=flat-square"/></a>
 </p>
+
+<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
+
+###### Demo
+- <a href="http://metinseylan.com/vuesocketio/" target="_blank">Chat Application</a>
+- <a href="http://metinseylan.com" target="_blank">Car Tracking Application</a>
+
+#### Installation
+``` bash
+npm install vue-socket.io --save
+```
+
