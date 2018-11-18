@@ -47,10 +47,10 @@ new Vue({
 }).$mount('#app');
 ```
 
-**Parameters**|**Type's**|**Default**|**Description**
------|-----|-----|-----
-debug|Boolean|`false`| Enable logging for debug
-connection|String/Socket.io-client|`null`| Websocket server url or socket.io-client instance
-vuex.store|Vuex|`null`| Vuex store instance
-vuex.actionPrefix|String|`null`|Prefix for emitting server side vuex action
-vuex.mutationPrefix|String |`null`|Prefix for emitting server side vuex mutation
+**Parameters**|**Type's**|**Default**|**Required**|**Description**
+-----|-----|-----|-----|-----
+debug|Boolean|`false`|Optional|Enable logging for debug
+connection|String/Socket.io-client|`null`|Required|Websocket server url or socket.io-client instance
+vuex.store|Vuex|`null`|Optional|Vuex store instance
+vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
+vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
