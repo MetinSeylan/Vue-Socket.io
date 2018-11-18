@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/MetinSeylan/Vue-Socket.io" target="_blank">
-    <img width="250"src="https://raw.githubusercontent.com/MetinSeylan/Vue-Socket.io/Refactoring3/docs/logo.png">
+    <img width="250" src="https://raw.githubusercontent.com/MetinSeylan/Vue-Socket.io/Refactoring3/docs/logo.png">
     </a>
 </p> 
 
@@ -57,7 +57,7 @@ vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex
 
 #### 🌈 Component Level Usage
 
-<p>if you want listen socket events from component side, you have to add `sockets` object in Vue component, and every function will start listen events, depends on object key</p>
+<p>If you want to listen socket events from component side, you need to add `sockets` object in Vue component, and every function will start to listen events, depends on object key</p>
 
 ``` javascript
 new Vue({
@@ -80,7 +80,7 @@ new Vue({
 
 ##### Dynamic Listenlers
 
-<p>if you need consuming events dynamically in runtime, you can use `subscribe` and `unsubscribe` methods in Vue component</p>
+<p>If you need consuming events dynamically in runtime, you can use `subscribe` and `unsubscribe` methods in Vue component</p>
 
 ``` javascript
 this.sockets.subscribe('EVENT_NAME', (data) => {
@@ -113,3 +113,9 @@ export default new Vuex.Store({
     }
 })
 ```
+
+<p align="center">
+    <a href="https://github.com/MetinSeylan/Vue-Socket.io" target="_blank">
+    <img src="https://media.giphy.com/media/11jlnltQgUi2mQ/giphy.gif">
+    </a>
+</p> 
