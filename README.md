@@ -72,8 +72,20 @@ new Vue({
     methods: {
         clickButton: function (data) {
             // $socket is socket.io-client instance
-            this.$socket.emit('emit_method', data);
+            this.$socket.emit('emit_method', data)
         }
     }
 })
+```
+
+##### Dynamic Listenlers
+
+<p>if you need consuming events dynamically in runtime, you can use `subscribe` and `unsubscribe` methods in Vue component</p>
+
+``` javascript
+this.sockets.subscribe('EVENT_NAME', (data) => {
+    this.msg = data.message;
+});
+
+this.sockets.unsubscribe('EVENT_NAME');
 ```
