@@ -91,7 +91,7 @@ this.sockets.unsubscribe('EVENT_NAME');
 ```
 
 #### 🏆 Vuex Integration
-<p>When you set store parameter in installation, `Vue-Socket.io` will sending events to Vuex store, you can use `actions` and `mutations` in same time if you set both prefix for vuex but best way is use just `actions`</p>
+<p>When you set store parameter in installation, `Vue-Socket.io` will start sending events to Vuex store. If you set both prefix for vuex, you can use `actions` and `mutations` at the same time. But, best way to use is just `actions`</p>
 
 ``` javascript
 import Vue from 'vue'
