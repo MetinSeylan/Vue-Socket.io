@@ -41,10 +41,10 @@ Vue.use(new VueSocketIO({
 }))
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app');
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
 ```
 
 **Parameters**|**Type's**|**Default**|**Required**|**Description**
@@ -54,3 +54,24 @@ connection|String/Socket.io-client|`null`|Required|Websocket server url or socke
 vuex.store|Vuex|`null`|Optional|Vuex store instance
 vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
 vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
+
+#### 🌈 Component Level Usage
+
+``` javascript
+new Vue({
+    sockets: {
+        connect: function () {
+            console.log('socket connected')
+        },
+        customEmit: function (data) {
+            console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+        }
+    },
+    methods: {
+        clickButton: function (val) {
+            // $socket is socket.io-client instance
+            this.$socket.emit('emit_method', val);
+        }
+    }
+})
+```
