@@ -5,7 +5,7 @@
   "description": "socket.io implemantation for vuejs and vuex",
   "main": "dist/vue-socketio.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+    "build": "webpack --mode=production --progress --hide-modules"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-transform-classes": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.4",
     "cross-env": "^5.2.0",

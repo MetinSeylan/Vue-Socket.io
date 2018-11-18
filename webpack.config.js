@@ -3,12 +3,11 @@ module.exports = {
     entry: ["./src/index.js"],
     output: {
         library: "VueSocketIO",
-        libraryTarget: "umd2",
+        libraryTarget: "umd",
         libraryExport: "default",
         filename: "vue-socketio.js",
         globalObject: "typeof self !== 'undefined' ? self : this"
     },
-    devtool: "source-map",
     module: {
         rules: [
             {
@@ -17,7 +16,10 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        plugins: ["@babel/plugin-proposal-class-properties"]
+                        plugins: [
+                            "@babel/plugin-proposal-class-properties",
+                            "@babel/plugin-transform-classes"
+                        ]
                     }
                 }
             }
