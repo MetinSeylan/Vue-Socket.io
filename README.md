@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/MetinSeylan/Vue-Socket.io" target="_blank">
-    <img width="250" src="https://raw.githubusercontent.com/MetinSeylan/Vue-Socket.io/Refactoring3/docs/logo.png">
+    <img width="250" src="https://raw.githubusercontent.com/MetinSeylan/Vue-Socket.io/master/docs/logo.png">
     </a>
 </p> 
 
