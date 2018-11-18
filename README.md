@@ -46,3 +46,11 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 ```
+
+**Parameters**|**Type's**|**Default**|**Description**
+-----|-----|-----|-----
+debug|Boolean|`false`| Enable logging for debug
+connection|String/Socket.io-client|`null`| Websocket server url or socket.io-client instance
+vuex.store|Vuex|`null`| Vuex store instance
+vuex.actionPrefix|String|`null`|Prefix for emitting server side vuex action
+vuex.mutationPrefix|String |`null`|Prefix for emitting server side vuex mutation
