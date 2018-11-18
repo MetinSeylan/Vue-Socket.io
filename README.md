@@ -5,12 +5,12 @@
 </p> 
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/vue-socket.io"><img src="https://img.shields.io/npm/v/vue-socket.io.svg?style=flat-square"/> <img src="https://img.shields.io/npm/dt/vue-socket.io.svg?style=flat-square"/></a>
-  <a href="https://github.com/vuejs/awesome-vue"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg?style=flat-square"/></a>
-  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/vue-2.x-brightgreen.svg?style=flat-square"/></a>
-  <a href="http://packagequality.com/#?package=vue-socket.io"><img src="http://npm.packagequality.com/shield/vue-socket.io.svg?style=flat-square"/></a>
-  <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/npm/l/vue-socket.io.svg?style=flat-square"/></a>
-  <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg?style=flat-square"/></a>
+  <a href="https://www.npmjs.com/package/vue-socket.io"><img src="https://img.shields.io/npm/v/vue-socket.io.svg"/> <img src="https://img.shields.io/npm/dt/vue-socket.io.svg"/></a>
+  <a href="https://github.com/vuejs/awesome-vue"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"/></a>
+  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/vue-2.x-brightgreen.svg"/></a>
+  <a href="http://packagequality.com/#?package=vue-socket.io"><img src="http://npm.packagequality.com/shield/vue-socket.io.svg"/></a>
+  <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/npm/l/vue-socket.io.svg"/></a>
+  <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg"/></a>
 </p>
 
 <p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
@@ -88,4 +88,28 @@ this.sockets.subscribe('EVENT_NAME', (data) => {
 });
 
 this.sockets.unsubscribe('EVENT_NAME');
+```
+
+#### 🏆 Vuex Integration
+<p>When you set store parameter in installation, `Vue-Socket.io` will sending events to Vuex store, you can use `actions` and `mutations` in same time if you set both prefix for vuex but best way is use just `actions`</p>
+
+``` javascript
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state: {},
+    mutations: {
+        "<MUTATION_PREFIX><EVENT_NAME>"() {
+            // do something
+        }
+    },
+    actions: {
+        "<ACTION_PREFIX><EVENT_NAME>"() {
+            // do something
+        }
+    }
+})
 ```
