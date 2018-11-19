@@ -78,7 +78,7 @@ new Vue({
 })
 ```
 
-##### Dynamic Listenlers
+##### Dynamic Listeners
 
 <p>If you need consuming events dynamically in runtime, you can use `subscribe` and `unsubscribe` methods in Vue component</p>
 
