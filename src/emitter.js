@@ -97,9 +97,9 @@ export default class EventEmitter{
 
                 if(action === this.actionPrefix+event) {
 
-                    Logger.info(`Dispatching Action: ${action}, Data:`, args);
+                    Logger.info(`Dispatching Action: ${key}, Data:`, args);
 
-                    this.store.dispatch(action, args);
+                    this.store.dispatch(key, args);
 
                 }
 
@@ -113,9 +113,9 @@ export default class EventEmitter{
 
                     if(mutation === this.mutationPrefix+event) {
 
-                        Logger.info(`Commiting Mutation: ${mutation}, Data:`, args);
+                        Logger.info(`Commiting Mutation: ${key}, Data:`, args);
 
-                        this.store.commit(mutation, args);
+                        this.store.commit(key, args);
 
                     }
 
