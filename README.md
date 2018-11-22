@@ -19,6 +19,10 @@
 - <a href="http://metinseylan.com/vuesocketio/" target="_blank">Chat Application</a>
 - <a href="http://metinseylan.com" target="_blank">Car Tracking Application</a>
 
+<p>
+are you looking for old documentation? <a href="https://github.com/MetinSeylan/Vue-Socket.io/blob/master/docs/OLD_README.md">it's here</a>
+</p>
+
 #### 🚀 Installation
 ``` bash
 npm install vue-socket.io --save
