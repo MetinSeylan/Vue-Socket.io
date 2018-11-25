@@ -42,7 +42,7 @@ export default class VueSocketIO {
      */
     connect(connection){
 
-        if(connection && typeof connection === 'object' && connection.constructor.name === 'Socket'){
+        if(connection && typeof connection === 'object'){
 
             Logger.info('Received socket.io-client instance');
 
