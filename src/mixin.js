@@ -4,32 +4,27 @@ export default {
      * lets collect all socket callback functions then register
      */
     created(){
+        
+        this.sockets = {
+            subscribe: (event, callback) => {
+                this.$vueSocketIo.emitter.addListener(event, callback, this);
+            },
+            unsubscribe: (event) => {
+                this.$vueSocketIo.emitter.removeListener(event, this);
+            }
+        };
 
-        if(this.$options.sockets){
-
-            Object.keys(this.$options.sockets).forEach(event => {
+        if(this.sockets){
+            
+            Object.keys(this.sockets).forEach(event => {
 
                 if(event !== 'subscribe' && event !== 'unsubscribe') {
                     this.$vueSocketIo.emitter.addListener(event, this.$options.sockets[event], this);
                 }
 
-            });
-
-            this.sockets = {
-                subscribe: (event, callback) => {
-
-                    this.$vueSocketIo.emitter.addListener(event, callback, this);
-
-                },
-                unsubscribe: (event) => {
-
-                    this.$vueSocketIo.emitter.removeListener(event, this);
-
-                }
-            };
-
+            });      
         }
-
+        
     },
 
     /**
@@ -37,9 +32,9 @@ export default {
      */
     beforeDestroy(){
 
-        if(this.$options.sockets){
+        if(this.sockets){
 
-            Object.keys(this.$options.sockets).forEach(event => {
+            Object.keys(this.sockets).forEach(event => {
 
                 this.$vueSocketIo.emitter.removeListener(event, this);
 
