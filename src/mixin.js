@@ -1,9 +1,26 @@
 export default {
 
     /**
-     * lets collect all socket callback functions then register
+     *  Assign runtime callbacks
      */
-    created(){
+    beforeCreate(){
+
+        if(!this.sockets) this.sockets = {};
+
+        this.sockets.subscribe = (event, callback) => {
+            this.$vueSocketIo.emitter.addListener(event, callback, this);
+        };
+
+        this.sockets.unsubscribe = (event) => {
+            this.$vueSocketIo.emitter.removeListener(event, this);
+        };
+
+    },
+
+    /**
+     * Register all socket events
+     */
+    mounted(){
 
         if(this.$options.sockets){
 
@@ -14,19 +31,6 @@ export default {
                 }
 
             });
-
-            this.sockets = {
-                subscribe: (event, callback) => {
-
-                    this.$vueSocketIo.emitter.addListener(event, callback, this);
-
-                },
-                unsubscribe: (event) => {
-
-                    this.$vueSocketIo.emitter.removeListener(event, this);
-
-                }
-            };
 
         }
 
