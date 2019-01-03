@@ -118,6 +118,11 @@ export default new Vuex.Store({
 })
 ```
 
+## Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/MetinSeylan/Vue-Socket.io.svg)](https://starcharts.herokuapp.com/MetinSeylan/Vue-Socket.io)
+   
+
 <p align="center">
     <a href="https://github.com/MetinSeylan/Vue-Socket.io" target="_blank">
     <img src="https://media.giphy.com/media/11jlnltQgUi2mQ/giphy.gif">
