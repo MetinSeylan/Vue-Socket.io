@@ -47,4 +47,5 @@ export default class VueSocketIOListenler {
     onEvent(event, args){
         this.emitter.emit(event, args);
     }
+
 }
