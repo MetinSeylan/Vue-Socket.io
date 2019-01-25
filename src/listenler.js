@@ -38,7 +38,7 @@ export default class VueSocketIOListenler {
 
             this.onEvent(event, args)
         };
-        VueSocketIOListenler.staticEvents.forEach(event => this.io.on(event, () => this.onEvent(event)))
+        VueSocketIOListenler.staticEvents.forEach(event => this.io.on(event, args => this.onEvent(event, args)))
     }
 
     /**
