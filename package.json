@@ -1,7 +1,7 @@
 {
   "name": "vue-socket.io",
   "author": "Metin Seylan <metinsyln@gmail.com>",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "socket.io implemantation for vuejs and vuex",
   "main": "dist/vue-socketio.js",
   "scripts": {
