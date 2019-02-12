@@ -91,11 +91,13 @@ export default class EventEmitter{
 
         if(this.store && this.store._actions){
 
+            let prefixed_event = this.actionPrefix + event;
+
             for (let key in this.store._actions) {
 
                 let action = key.split('/').pop();
 
-                if(action === this.actionPrefix+event) {
+                if(action === prefixed_event) {
 
                     Logger.info(`Dispatching Action: ${key}, Data:`, args);
 
@@ -107,11 +109,13 @@ export default class EventEmitter{
 
             if(this.mutationPrefix) {
 
+                let prefixed_event = this.mutationPrefix + event;
+
                 for (let key in this.store._mutations) {
 
                     let mutation = key.split('/').pop();
 
-                    if(mutation === this.mutationPrefix+event) {
+                    if(mutation === prefixed_event) {
 
                         Logger.info(`Commiting Mutation: ${key}, Data:`, args);
 
