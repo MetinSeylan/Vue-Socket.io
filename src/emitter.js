@@ -77,7 +77,9 @@ export default class EventEmitter{
 
         }
 
-        this.dispatchStore(event, args);
+        if(event !== 'ping' && event !== 'pong') {
+            this.dispatchStore(event, args);
+        }
 
     }
 
