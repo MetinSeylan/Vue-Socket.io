@@ -1,6 +1,6 @@
 import Mixin from './mixin';
 import Logger from './logger';
-import Listenler from './listenler';
+import Listener from './listener';
 import Emitter from './emitter';
 import SocketIO from 'socket.io-client';
 
@@ -17,7 +17,7 @@ export default class VueSocketIO {
         Logger.debug = debug;
         this.io = this.connect(connection);
         this.emitter = new Emitter(vuex);
-        this.listener = new Listenler(this.io, this.emitter);
+        this.listener = new Listener(this.io, this.emitter);
 
     }
 
