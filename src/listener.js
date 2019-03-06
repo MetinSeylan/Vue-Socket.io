@@ -1,5 +1,5 @@
 
-export default class VueSocketIOListenler {
+export default class VueSocketIOListener {
 
     /**
      * socket.io-client reserved event keywords
