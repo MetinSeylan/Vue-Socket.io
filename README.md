@@ -41,7 +41,8 @@ Vue.use(new VueSocketIO({
         store,
         actionPrefix: 'SOCKET_',
         mutationPrefix: 'SOCKET_'
-    }
+    },
+    options: { path: "/my-app/" } //Optional options
 }))
 
 new Vue({
