@@ -59,12 +59,12 @@ import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
 
+const options = { path: '/my-app/' }; //Options object to pass into SocketIO
+
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: SocketIO('http://metinseylan.com:1992', {
-      path: '/my-app/'
-    }),
+    connection: SocketIO('http://metinseylan.com:1992', options), //options object is Optional
     vuex: {
       store,
       actionPrefix: "SOCKET_",
