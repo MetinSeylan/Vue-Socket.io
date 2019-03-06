@@ -27,7 +27,7 @@ are you looking for old documentation? <a href="https://github.com/MetinSeylan/V
 ``` bash
 npm install vue-socket.io --save
 ```
-
+##### Using Connection String
 ``` javascript
 import Vue from 'vue'
 import store from './store'
@@ -43,6 +43,34 @@ Vue.use(new VueSocketIO({
         mutationPrefix: 'SOCKET_'
     }
 }))
+
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
+```
+
+##### Using socket.io-client Instance
+``` javascript
+import Vue from 'vue'
+import store from './store'
+import App from './App.vue'
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(
+  new VueSocketIO({
+    debug: true,
+    connection: SocketIO('http://metinseylan.com:1992', {
+      path: '/my-app/'
+    }),
+    vuex: {
+      store,
+      actionPrefix: "SOCKET_",
+      mutationPrefix: "SOCKET_"
+    }
+  })
+);
 
 new Vue({
     router,
