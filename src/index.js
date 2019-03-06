@@ -11,6 +11,7 @@ export default class VueSocketIO {
      * @param io
      * @param vuex
      * @param debug
+     * @param options
      */
     constructor({connection, vuex, debug, options}){
 
@@ -22,7 +23,7 @@ export default class VueSocketIO {
     }
 
     /**
-     * Vuejs entrypoint
+     * Vue.js entry point
      * @param Vue
      */
     install(Vue){
@@ -37,7 +38,7 @@ export default class VueSocketIO {
 
 
     /**
-     * registering socketio instance
+     * registering SocketIO instance
      * @param connection
      * @param options
      */
