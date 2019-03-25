@@ -90,11 +90,12 @@ export default class EventEmitter{
      * @param args
      */
     dispatchStore(event, args){
-        if(!this.store){
-            return
-        }
+        if(this.store){
 
-        this.dispatchModule('', this.store._modules.root, event, args)
+            this.dispatchModule('', this.store._modules.root, event, args)
+
+        }
+        
     }
 
     dispatchModule(path, mod, event, args){
