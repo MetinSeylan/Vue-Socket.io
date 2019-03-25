@@ -90,7 +90,7 @@ export default class EventEmitter{
      * @param args
      */
     dispatchStore(event, args){
-        if(this.store){
+        if(this.store) {
 
             this.dispatchModule('', this.store._modules.root, event, args)
 
@@ -99,19 +99,24 @@ export default class EventEmitter{
     }
 
     dispatchModule(path, mod, event, args){
-        const action_prefixed_event = this.actionPrefix + event;
 
-        // If the action exists in the module dispatch it
-        if (mod._rawModule.actions[action_prefixed_event]) {
+        if(mod._rawModule.actions) {
 
-            const fullKey = path + action_prefixed_event
+            const action_prefixed_event = this.actionPrefix + event;
+            
+            // If the action exists in the module dispatch it
+            if (mod._rawModule.actions[action_prefixed_event]) {
+                
+                const fullKey = path + action_prefixed_event
+                
+                Logger.info(`Dispatching Action: ${fullKey}, Data:`, args);
+                
+                this.store.dispatch(fullKey, args);
+            }
 
-            Logger.info(`Dispatching Action: ${fullKey}, Data:`, args);
-
-            this.store.dispatch(fullKey, args);
         }
         
-        if(this.mutationPrefix){
+        if(this.mutationPrefix && mod._rawModule.mutations) {
             
             const mutation_prefixed_event = this.mutationPrefix + event;
 
