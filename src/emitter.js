@@ -90,47 +90,45 @@ export default class EventEmitter{
      * @param args
      */
     dispatchStore(event, args){
-
-        if(this.store && this.store._actions){
-
-            let prefixed_event = this.actionPrefix + event;
-
-            for (let key in this.store._actions) {
-
-                let action = key.split('/').pop();
-
-                if(action === prefixed_event) {
-
-                    Logger.info(`Dispatching Action: ${key}, Data:`, args);
-
-                    this.store.dispatch(key, args);
-
-                }
-
-            }
-
-            if(this.mutationPrefix) {
-
-                let prefixed_event = this.mutationPrefix + event;
-
-                for (let key in this.store._mutations) {
-
-                    let mutation = key.split('/').pop();
-
-                    if(mutation === prefixed_event) {
-
-                        Logger.info(`Commiting Mutation: ${key}, Data:`, args);
-
-                        this.store.commit(key, args);
-
-                    }
-
-                }
-
-            }
-
+        if(!this.store){
+            return
         }
 
+        this.dispatchModule('', this.store._modules.root, event, args)
     }
 
+    dispatchModule(path, mod, event, args){
+        const action_prefixed_event = this.actionPrefix + event;
+
+        // If the action exists in the module dispatch it
+        if (mod._rawModule.actions[action_prefixed_event]) {
+
+            const fullKey = path + action_prefixed_event
+
+            Logger.info(`Dispatching Action: ${fullKey}, Data:`, args);
+
+            this.store.dispatch(fullKey, args);
+        }
+        
+        if(this.mutationPrefix){
+            
+            const mutation_prefixed_event = this.mutationPrefix + event;
+
+            // If the mutation exists in the module commit it
+            if (mod._rawModule.mutations[mutation_prefixed_event]) {
+                
+                const fullKey = path + mutation_prefixed_event
+    
+                Logger.info(`Commiting Mutation: ${fullKey}, Data:`, args);
+    
+                this.store.commit(fullKey, args);
+
+            }
+        }
+
+        // Call this method recursively on every submodules
+        for (const submodule in mod._children) {
+            this.dispatchModule(path + submodule + '/', mod._children[submodule], event, args)
+        }
+    }
 }
