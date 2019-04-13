@@ -13,10 +13,11 @@ export default class VueSocketIO {
      * @param debug
      * @param options
      */
-    constructor({connection, vuex, debug, options}){
+    constructor({connection, vuex, debug, options, useConnectionNamespace}){
 
         Logger.debug = debug;
         this.io = this.connect(connection, options);
+        this.useConnectionNamespace = useConnectionNamespace;
         this.emitter = new Emitter(vuex);
         this.listener = new Listener(this.io, this.emitter);
 
@@ -28,7 +29,23 @@ export default class VueSocketIO {
      */
     install(Vue){
 
-        Vue.prototype.$socket = this.io;
+        const namespace = this.io.nsp.replace("/", "");
+
+        if (this.useConnectionNamespace) {
+          if (typeof Vue.prototype.$socket === "object") {
+            Vue.prototype.$socket = {
+              ...Vue.prototype.$socket,
+              [namespace]: this.io
+            };
+          } else {
+            Vue.prototype.$socket = {
+              [namespace]: this.io
+            };
+          }
+        } else {
+          Vue.prototype.$socket = this.io;
+        }
+      
         Vue.prototype.$vueSocketIo = this;
         Vue.mixin(Mixin);
 
