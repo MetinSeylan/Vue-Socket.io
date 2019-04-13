@@ -1,67 +1,68 @@
-import Mixin from './mixin';
-import Logger from './logger';
-import Listener from './listener';
-import Emitter from './emitter';
-import SocketIO from 'socket.io-client';
+import Mixin from "./mixin";
+import Logger from "./logger";
+import Listener from "./listener";
+import Emitter from "./emitter";
+import SocketIO from "socket.io-client";
 
 export default class VueSocketIO {
+  /**
+   * lets take all resource
+   * @param io
+   * @param vuex
+   * @param debug
+   * @param options
+   */
+  constructor({ connection, vuex, debug, options, useConnectionNamespace }) {
+    Logger.debug = debug;
+    this.io = this.connect(connection, options);
+    this.useConnectionNamespace = useConnectionNamespace;
+    this.emitter = new Emitter(vuex);
+    this.listener = new Listener(this.io, this.emitter);
+  }
 
-    /**
-     * lets take all resource
-     * @param io
-     * @param vuex
-     * @param debug
-     * @param options
-     */
-    constructor({connection, vuex, debug, options}){
+  /**
+   * Vue.js entry point
+   * @param Vue
+   */
+  install(Vue) {
+    const namespace = this.io.nsp.replace("/", "");
 
-        Logger.debug = debug;
-        this.io = this.connect(connection, options);
-        this.emitter = new Emitter(vuex);
-        this.listener = new Listener(this.io, this.emitter);
-
+    if (this.useConnectionNamespace) {
+      if (typeof Vue.prototype.$socket === "object") {
+        Vue.prototype.$socket = {
+          ...Vue.prototype.$socket,
+          [namespace]: this.io
+        };
+      } else {
+        Vue.prototype.$socket = {
+          [namespace]: this.io
+        };
+      }
+    } else {
+      Vue.prototype.$socket = this.io;
     }
 
-    /**
-     * Vue.js entry point
-     * @param Vue
-     */
-    install(Vue){
+    Vue.prototype.$vueSocketIo = this;
+    Vue.mixin(Mixin);
 
-        Vue.prototype.$socket = this.io;
-        Vue.prototype.$vueSocketIo = this;
-        Vue.mixin(Mixin);
+    Logger.info(`Vue-Socket.io plugin enabled`);
+  }
 
-        Logger.info('Vue-Socket.io plugin enabled');
-
+  /**
+   * registering SocketIO instance
+   * @param connection
+   * @param options
+   */
+  connect(connection, options) {
+    if (connection && typeof connection === "object") {
+      Logger.info(`Received socket.io-client instance`);
+      return connection;
+    } else if (typeof connection === "string") {
+      const io = SocketIO(connection, options);
+      Logger.info(`Received connection string`);
+      return (this.io = io);
+    } else {
+      throw new Error("Unsupported connection type");
     }
-
-
-    /**
-     * registering SocketIO instance
-     * @param connection
-     * @param options
-     */
-    connect(connection, options){
-
-        if(connection && typeof connection === 'object'){
-
-            Logger.info('Received socket.io-client instance');
-
-            return connection;
-
-        } else if(typeof connection === 'string'){
-
-            Logger.info('Received connection string');
-
-            return this.io = SocketIO(connection, options);
-
-        } else {
-
-            throw new Error('Unsupported connection type');
-
-        }
-
-    }
-
+  }
 }
