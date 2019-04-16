@@ -13,11 +13,11 @@ export default class VueSocketIO {
      * @param debug
      * @param options
      */
-    constructor({connection, vuex, debug, options, useConnectionNamespace}){
+    constructor({connection, vuex, debug, options}){
 
         Logger.debug = debug;
         this.io = this.connect(connection, options);
-        this.useConnectionNamespace = useConnectionNamespace;
+        this.useConnectionNamespace = (options && options.useConnectionNamespace) || false;
         this.emitter = new Emitter(vuex);
         this.listener = new Listener(this.io, this.emitter);
 
