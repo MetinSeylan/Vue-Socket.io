@@ -7,14 +7,21 @@ export default {
 
         if(!this.sockets) this.sockets = {};
 
-        this.sockets.subscribe = (event, callback) => {
+        if (typeof this.$vueSocketIo === 'object') {
+            for (const namespace of Object.keys(this.$vueSocketIo)) {
+                this.sockets[namespace] = {
+                    subscribe: (event, callback) => {
+                        this.$vueSocketIo[namespace].emitter.addListener(event, callback, this);
+                    },
+                    unsubscribe: (event) => {
+                        this.$vueSocketIo[namespace].emitter.removeListener(event, this);
+                    }
+                }
+            }
+        } else {
             this.$vueSocketIo.emitter.addListener(event, callback, this);
-        };
-
-        this.sockets.unsubscribe = (event) => {
             this.$vueSocketIo.emitter.removeListener(event, this);
-        };
-
+        }
     },
 
     /**
@@ -24,14 +31,27 @@ export default {
 
         if(this.$options.sockets){
 
-            Object.keys(this.$options.sockets).forEach(event => {
+            if (typeof this.$vueSocketIo === 'object') {
+                for (const namespace of Object.keys(this.$vueSocketIo)) {
+                    if (this.$options.sockets[namespace]) {
+                        Object.keys(this.$options.sockets[namespace]).forEach(event => {
 
-                if(event !== 'subscribe' && event !== 'unsubscribe') {
-                    this.$vueSocketIo.emitter.addListener(event, this.$options.sockets[event], this);
+                            if(event !== 'subscribe' && event !== 'unsubscribe') {
+                                this.$vueSocketIo[namespace].emitter.addListener(event, this.$options.sockets[namespace][event], this);
+                            }
+            
+                        });
+                    }
                 }
+            } else {
+                Object.keys(this.$options.sockets).forEach(event => {
 
-            });
-
+                    if(event !== 'subscribe' && event !== 'unsubscribe') {
+                        this.$vueSocketIo.emitter.addListener(event, this.$options.sockets[event], this);
+                    }
+    
+                });
+            }
         }
 
     },
@@ -43,11 +63,23 @@ export default {
 
         if(this.$options.sockets){
 
-            Object.keys(this.$options.sockets).forEach(event => {
+            if (typeof this.$vueSocketIo === 'object') {
+                for (const namespace of Object.keys(this.$vueSocketIo)) {
+                    if (this.$options.sockets[namespace]) {
+                        Object.keys(this.$options.sockets[namespace]).forEach(event => {
 
-                this.$vueSocketIo.emitter.removeListener(event, this);
+                            this.$vueSocketIo[namespace].emitter.removeListener(event, this);
+            
+                        });
+                    }
+                }
+            } else {
+                Object.keys(this.$options.sockets).forEach(event => {
 
-            });
+                    this.$vueSocketIo.emitter.removeListener(event, this);
+    
+                });
+            }
 
         }
 

@@ -37,16 +37,19 @@ export default class VueSocketIO {
               ...Vue.prototype.$socket,
               [namespace]: this.io
             };
+
+            Vue.prototype.$vueSocketIo = {...Vue.prototype.$vueSocketIo, [namespace]: this};
           } else {
             Vue.prototype.$socket = {
               [namespace]: this.io
             };
+            Vue.prototype.$vueSocketIo = { [namespace]: this};
           }
         } else {
           Vue.prototype.$socket = this.io;
+          Vue.prototype.$vueSocketIo = this;
         }
       
-        Vue.prototype.$vueSocketIo = this;
         Vue.mixin(Mixin);
 
         Logger.info('Vue-Socket.io plugin enabled');
