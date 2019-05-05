@@ -5,48 +5,56 @@ import Emitter from "./emitter";
 import SocketIO from "socket.io-client";
 
 export default class VueSocketIO {
-  /**
-   * lets take all resource
-   * @param io
-   * @param vuex
-   * @param debug
-   * @param options
-   */
-  constructor({ connection, vuex, debug, options, useConnectionNamespace }) {
-    Logger.debug = debug;
-    this.io = this.connect(connection, options);
-    this.useConnectionNamespace = useConnectionNamespace;
-    this.emitter = new Emitter(vuex);
-    this.listener = new Listener(this.io, this.emitter);
-  }
 
-  /**
-   * Vue.js entry point
-   * @param Vue
-   */
-  install(Vue) {
-    const namespace = this.io.nsp.replace("/", "");
+    /**
+     * lets take all resource
+     * @param io
+     * @param vuex
+     * @param debug
+     * @param options
+     */
+    constructor({connection, vuex, debug, options}){
 
-    if (this.useConnectionNamespace) {
-      if (typeof Vue.prototype.$socket === "object") {
-        Vue.prototype.$socket = {
-          ...Vue.prototype.$socket,
-          [namespace]: this.io
-        };
-      } else {
-        Vue.prototype.$socket = {
-          [namespace]: this.io
-        };
-      }
-    } else {
-      Vue.prototype.$socket = this.io;
+        Logger.debug = debug;
+        this.io = this.connect(connection, options);
+        this.useConnectionNamespace = (options && options.useConnectionNamespace) || false;
+        this.emitter = new Emitter(vuex);
+        this.listener = new Listener(this.io, this.emitter);
+
     }
 
-    Vue.prototype.$vueSocketIo = this;
-    Vue.mixin(Mixin);
+    /**
+     * Vue.js entry point
+     * @param Vue
+     */
+    install(Vue){
 
-    Logger.info(`Vue-Socket.io plugin enabled`);
-  }
+        const namespace = this.io.nsp.replace("/", "");
+
+        if (this.useConnectionNamespace) {
+          if (typeof Vue.prototype.$socket === "object") {
+            Vue.prototype.$socket = {
+              ...Vue.prototype.$socket,
+              [namespace]: this.io
+            };
+
+            Vue.prototype.$vueSocketIo = {...Vue.prototype.$vueSocketIo, [namespace]: this};
+          } else {
+            Vue.prototype.$socket = {
+              [namespace]: this.io
+            };
+            Vue.prototype.$vueSocketIo = { [namespace]: this};
+          }
+        } else {
+          Vue.prototype.$socket = this.io;
+          Vue.prototype.$vueSocketIo = this;
+        }
+      
+        Vue.mixin(Mixin);
+
+        Logger.info('Vue-Socket.io plugin enabled');
+
+    }
 
   /**
    * registering SocketIO instance
