@@ -57,7 +57,6 @@ new Vue({
 import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
-import SocketIO from 'socket.io-client';
 import VueSocketIO from 'vue-socket.io'
 
 const options = { path: '/my-app/' }; //Options object to pass into SocketIO
@@ -87,6 +86,7 @@ connection|String/Socket.io-client|`null`|Required|Websocket server url or socke
 vuex.store|Vuex|`null`|Optional|Vuex store instance
 vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
 vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
+vuex.options.useConnectionNamespace |Boolean|`false`|Optional|Use more than one connection namespace
 
 #### 🌈 Component Level Usage
 
@@ -145,6 +145,41 @@ export default new Vuex.Store({
         }
     }
 })
+```
+
+#### 🏆 Connection Namespace
+<p>When you need to handle more than one namespaced connection, you need to set the `useConnectionNamespace` property of
+the options object to true. What this does is telling the plugin that you are going to be using more than one namespaced connection and you want to put every connection in their own `$socket` key.</p>
+
+``` javascript
+import Vue from 'vue'
+import store from './store'
+import App from './App.vue'
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://metinseylan.com:1992/mynamespace',
+    vuex: {
+        store,
+        options: {
+            useConnectionNamespace: true
+        }
+    },
+    options: { path: "/my-app/" } //Optional options
+}))
+
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
+```
+
+Then use it like this:
+
+``` javascript
+Vue.$socket.mynamespace.emit('emit_method', data)
 ```
 
 ## Stargazers over time
