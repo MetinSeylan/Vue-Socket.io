@@ -8,6 +8,7 @@ import {
 } from "vue/types/options";
 import { Vue } from "vue/types/vue";
 import { PluginFunction, PluginObject } from "vue";
+import { Store } from "vuex";
 
 interface socketHandler<T> {
     (this: T, ...args: any[]): SocketIOClient.Socket
@@ -33,9 +34,9 @@ declare module 'vue/types/options' {
 
 export interface VueSocketOptions {
     debug?: boolean;
-    connection: string,
+    connection: string | SocketIOClient.Socket,
     vuex?: {
-        store?: any,
+        store?: Store<any>,
         actionPrefix?: string,
         mutationPrefix?: string,
         options?: {
