@@ -11,12 +11,20 @@ import { PluginFunction, PluginObject } from "vue";
 import { Store } from "vuex";
 
 interface socketHandler<T> {
-    (this: T, ...args: any[]): SocketIOClient.Socket
+    (this: T, ...args: any[]): void
+}
+
+interface Sockets<V> {
+    [key: string]: socketHandler<V>
 }
 
 declare module 'vue/types/vue' {
     interface Vue {
-        $socket: SocketIOClient.Socket
+        $socket: SocketIOClient.Socket,
+        sockets: {
+            subscribe(eventName: string, handler: socketHandler<Vue>): void,
+            unsubscribe(eventName: string): void,
+        }
     }
 }
 
@@ -28,7 +36,7 @@ declare module 'vue/types/options' {
         Computed=DefaultComputed,
         PropsDef=PropsDefinition<DefaultProps>,
         Props=DefaultProps> {
-        sockets: {[key: string]: socketHandler<V>}
+        sockets?: Sockets<V>
     }
 }
 
