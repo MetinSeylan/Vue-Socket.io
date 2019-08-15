@@ -38,6 +38,8 @@
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.4",
     "cross-env": "^5.2.0",
+    "vue": "^2.6.10",
+    "vuex": "^3.1.1",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
   }
