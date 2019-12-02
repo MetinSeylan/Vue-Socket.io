@@ -82,6 +82,7 @@ new Vue({
 **Parameters**|**Type's**|**Default**|**Required**|**Description**
 -----|-----|-----|-----|-----
 debug|Boolean|`false`|Optional|Enable logging for debug
+darkMode|Boolean|`false`|Optional|Enable console dark mode for debug
 connection|String/Socket.io-client|`null`|Required|Websocket server url or socket.io-client instance
 vuex.store|Vuex|`null`|Optional|Vuex store instance
 vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
