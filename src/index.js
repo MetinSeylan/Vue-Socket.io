@@ -11,11 +11,13 @@ export default class VueSocketIO {
      * @param io
      * @param vuex
      * @param debug
+     * @param darkMode
      * @param options
      */
-    constructor({connection, vuex, debug, options}){
+    constructor({connection, vuex, debug, darkMode, options}){
 
         Logger.debug = debug;
+        Logger.darkMode = darkMode;
         this.io = this.connect(connection, options);
         this.useConnectionNamespace = (options && options.useConnectionNamespace);
         this.namespaceName = (options && options.namespaceName);
