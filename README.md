@@ -13,7 +13,7 @@
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg"/></a>
 </p>
 
-<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
+<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements.<p>
 
 ###### Demo
 - <a href="http://metinseylan.com/vuesocketio/" target="_blank">Chat Application</a>
