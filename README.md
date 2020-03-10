@@ -33,6 +33,7 @@ import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
+import SocketIO from "socket.io-client"
 
 Vue.use(new VueSocketIO({
     debug: true,
@@ -58,6 +59,7 @@ import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
+import SocketIO from "socket.io-client"
 
 const options = { path: '/my-app/' }; //Options object to pass into SocketIO
 
