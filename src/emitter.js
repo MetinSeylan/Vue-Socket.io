@@ -4,10 +4,8 @@ export default class EventEmitter{
 
     constructor(vuex = {}){
         Logger.info(vuex ? `Vuex adapter enabled` : `Vuex adapter disabled`);
-        Logger.info(vuex.mutationPrefix ? `Vuex socket mutations enabled` : `Vuex socket mutations disabled`);
-        Logger.info(vuex ? `Vuex socket actions enabled` : `Vuex socket actions disabled`);
         this.store = vuex.store;
-        this.actionPrefix = vuex.actionPrefix ? vuex.actionPrefix : 'SOCKET_';
+        this.actionPrefix = vuex.actionPrefix;
         this.mutationPrefix = vuex.mutationPrefix;
         this.listeners = new Map();
     }
@@ -91,19 +89,27 @@ export default class EventEmitter{
      */
     dispatchStore(event, args){
 
-        if(this.store && this.store._actions){
+        if(this.store) {
+            
+            if(this.store._actions){
 
-            let prefixed_event = this.actionPrefix + event;
+                let action_name = event;
 
-            for (let key in this.store._actions) {
+                if (!!this.actionPrefix) {
+                    let namespace_sep_pos = event.lastIndexOf('/');
+                    action_name = (namespace_sep_pos !== -1) ? [event.slice(0, namespace_sep_pos+1), this.actionPrefix, event.slice(namespace_sep_pos+1)].join('') : this.actionPrefix + event;
+                }
 
-                let action = key.split('/').pop();
+                
+                for (let key in this.store._actions) {
 
-                if(action === prefixed_event) {
+                    if(key === action_name) {
 
-                    Logger.info(`Dispatching Action: ${key}, Data:`, args);
+                        Logger.info(`Dispatching Action: ${key}, Data:`, args);
 
-                    this.store.dispatch(key, args);
+                        this.store.dispatch(key, args);
+
+                    }
 
                 }
 
@@ -111,15 +117,18 @@ export default class EventEmitter{
 
             if(this.mutationPrefix) {
 
-                let prefixed_event = this.mutationPrefix + event;
+                let mutation_name = event;
+
+                if (!!this.mutationPrefix) {
+                    let namespace_sep_pos = event.lastIndexOf('/');
+                    mutation_name = (namespace_sep_pos !== -1) ? [event.slice(0, namespace_sep_pos+1), this.mutationPrefix, event.slice(namespace_sep_pos+1)].join('') : this.mutationPrefix + event;
+                }
 
                 for (let key in this.store._mutations) {
 
-                    let mutation = key.split('/').pop();
+                    if(key === mutation_name) {
 
-                    if(mutation === prefixed_event) {
-
-                        Logger.info(`Commiting Mutation: ${key}, Data:`, args);
+                        Logger.info(`Committing Mutation: ${key}, Data:`, args);
 
                         this.store.commit(key, args);
 

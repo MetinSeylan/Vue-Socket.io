@@ -126,7 +126,7 @@ this.sockets.unsubscribe('EVENT_NAME');
 ```
 
 #### 🏆 Vuex Integration
-<p>When you set store parameter in installation, `Vue-Socket.io` will start sending events to Vuex store. If you set both prefix for vuex, you can use `actions` and `mutations` at the same time. But, best way to use is just `actions`</p>
+<p>When you set store parameter in installation, `Vue-Socket.io` will start sending events to Vuex store. The prefix for mutations and actions are both optional and will default to none. The prefix may be useful in differentiating what type of event should be sent to the store in the case of an action and mutation with the same name.</p>
 
 ``` javascript
 import Vue from 'vue'
@@ -148,6 +148,10 @@ export default new Vuex.Store({
     }
 })
 ```
+
+##### Vuex Namespaced Modules
+<p>When using namespaced modules, the prefix, if one exists, will be parsed into the action name. For example, if the emitted event it `jobs/runTask` and the action prefix is `SOCKET_`, then the vuex action should be `SOCKET_runTask` in the jobs namespace. In this example the vuex store will receive the dispatched action: `jobs/SOCKET_runTask`.</p>
+
 
 #### 🏆 Connection Namespace
 <p>When you need to handle more than one namespaced connection, you need to set the `useConnectionNamespace` property of
