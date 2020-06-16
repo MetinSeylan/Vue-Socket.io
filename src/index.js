@@ -33,6 +33,13 @@ export default class VueSocketIO {
         const namespace = this.namespaceName || this.io.nsp.replace("/", "");
 
         if (this.useConnectionNamespace) {
+          // update list of namespaces
+          if (Array.isArray(Vue.prototype.VueSocketIONamepaces)) {
+              Vue.prototype.VueSocketIONamepaces.push(namespace);
+          } else {
+              Vue.prototype.VueSocketIONamepaces = [namespace];
+          }
+
           if (typeof Vue.prototype.$socket === "object") {
             Vue.prototype.$socket = {
               ...Vue.prototype.$socket,
