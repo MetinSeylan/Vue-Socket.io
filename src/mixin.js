@@ -19,8 +19,12 @@ export default {
                 }
             }
         } else {
-            this.$vueSocketIo.emitter.addListener(event, callback, this);
-            this.$vueSocketIo.emitter.removeListener(event, this);
+            this.sockets.subscribe = (event, callback) => {
+                this.$vueSocketIo.emitter.addListener(event, callback, this);
+            };
+            this.sockets.unsubscribe = (event) => {
+                this.$vueSocketIo.emitter.removeListener(event, this);
+            };
         }
     },
 
