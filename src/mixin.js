@@ -7,7 +7,7 @@ export default {
 
         if(!this.sockets) this.sockets = {};
 
-        if (typeof this.$vueSocketIo === 'object') {
+        if (typeof this.$vueSocketIo === 'object' && this.$useConnectionNamespace) {
             for (const namespace of Object.keys(this.$vueSocketIo)) {
                 this.sockets[namespace] = {
                     subscribe: (event, callback) => {
@@ -31,7 +31,7 @@ export default {
 
         if(this.$options.sockets){
 
-            if (typeof this.$vueSocketIo === 'object') {
+            if (typeof this.$vueSocketIo === 'object' && this.$useConnectionNamespace) {
                 for (const namespace of Object.keys(this.$vueSocketIo)) {
                     if (this.$options.sockets[namespace]) {
                         Object.keys(this.$options.sockets[namespace]).forEach(event => {
@@ -45,7 +45,6 @@ export default {
                 }
             } else {
                 Object.keys(this.$options.sockets).forEach(event => {
-
                     if(event !== 'subscribe' && event !== 'unsubscribe') {
                         this.$vueSocketIo.emitter.addListener(event, this.$options.sockets[event], this);
                     }
@@ -63,7 +62,7 @@ export default {
 
         if(this.$options.sockets){
 
-            if (typeof this.$vueSocketIo === 'object') {
+            if (typeof this.$vueSocketIo === 'object' && this.$useConnectionNamespace) {
                 for (const namespace of Object.keys(this.$vueSocketIo)) {
                     if (this.$options.sockets[namespace]) {
                         Object.keys(this.$options.sockets[namespace]).forEach(event => {
@@ -86,3 +85,4 @@ export default {
     }
 
 }
+

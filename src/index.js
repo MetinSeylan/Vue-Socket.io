@@ -51,6 +51,7 @@ export default class VueSocketIO {
           Vue.prototype.$vueSocketIo = this;
         }
       
+        Vue.prototype.$useConnectionNamespace = this.useConnectionNamespace
         Vue.mixin(Mixin);
 
         Logger.info('Vue-Socket.io plugin enabled');
@@ -75,3 +76,4 @@ export default class VueSocketIO {
     }
   }
 }
+
