@@ -1,7 +1,7 @@
 {
   "name": "vue-socket.io",
   "author": "Metin Seylan <metinsyln@gmail.com>",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "description": "socket.io implementation for Vue.js and Vuex",
   "main": "dist/vue-socketio.js",
   "scripts": {
@@ -38,8 +38,6 @@
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.4",
     "cross-env": "^5.2.0",
-    "vue": "^2.6.10",
-    "vuex": "^3.1.1",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
   }

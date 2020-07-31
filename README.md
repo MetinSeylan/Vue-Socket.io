@@ -13,7 +13,7 @@
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg"/></a>
 </p>
 
-<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements.<p>
+<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
 
 ###### Demo
 - <a href="http://metinseylan.com/vuesocketio/" target="_blank">Chat Application</a>
@@ -33,7 +33,6 @@ import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
-import SocketIO from "socket.io-client"
 
 Vue.use(new VueSocketIO({
     debug: true,
@@ -59,7 +58,6 @@ import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
-import SocketIO from "socket.io-client"
 
 const options = { path: '/my-app/' }; //Options object to pass into SocketIO
 
@@ -88,7 +86,6 @@ connection|String/Socket.io-client|`null`|Required|Websocket server url or socke
 vuex.store|Vuex|`null`|Optional|Vuex store instance
 vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
 vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
-vuex.options.useConnectionNamespace |Boolean|`false`|Optional|Use more than one connection namespace
 
 #### 🌈 Component Level Usage
 
@@ -147,41 +144,6 @@ export default new Vuex.Store({
         }
     }
 })
-```
-
-#### 🏆 Connection Namespace
-<p>When you need to handle more than one namespaced connection, you need to set the `useConnectionNamespace` property of
-the options object to true. What this does is telling the plugin that you are going to be using more than one namespaced connection and you want to put every connection in their own `$socket` key.</p>
-
-``` javascript
-import Vue from 'vue'
-import store from './store'
-import App from './App.vue'
-import VueSocketIO from 'vue-socket.io'
-
-Vue.use(new VueSocketIO({
-    debug: true,
-    connection: 'http://metinseylan.com:1992/mynamespace',
-    vuex: {
-        store,
-        options: {
-            useConnectionNamespace: true
-        }
-    },
-    options: { path: "/my-app/" } //Optional options
-}))
-
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app')
-```
-
-Then use it like this:
-
-``` javascript
-Vue.$socket.mynamespace.emit('emit_method', data)
 ```
 
 ## Stargazers over time
