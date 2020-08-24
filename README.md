@@ -123,6 +123,35 @@ this.sockets.subscribe('EVENT_NAME', (data) => {
 this.sockets.unsubscribe('EVENT_NAME');
 ```
 
+##### Defining handlers for events with special characters
+
+<p>If you want to handle 'kebab-case', or "event with space inside it" events, then you have to define it via the following way</p>
+
+``` javascript
+export default {
+  name: 'Test',
+  sockets: {
+    connect: function () {
+      console.log('socket to notification channel connected')
+    },
+  },
+
+  data () {
+    return {
+      something: [
+         // ... something here for the data if you need.
+      ]
+    }
+  },
+
+  mounted () {
+    this.$socket.subscribe("kebab-case", function(data) {
+        console.log("This event was fired by eg. sio.emit('kebab-case')", data)
+    })
+  }
+}
+```
+
 #### 🏆 Vuex Integration
 <p>When you set store parameter in installation, `Vue-Socket.io` will start sending events to Vuex store. If you set both prefix for vuex, you can use `actions` and `mutations` at the same time. But, best way to use is just `actions`</p>
 
