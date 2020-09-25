@@ -12,7 +12,11 @@
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/npm/l/vue-socket.io.svg"/></a>
   <a href="https://github.com/MetinSeylan/Vue-Socket.io/"><img src="https://img.shields.io/github/stars/MetinSeylan/Vue-Socket.io.svg"/></a>
 </p>
-
+<p align="center">
+<a href="https://www.patreon.com/MetinSeylan">
+	<img alt="Patreon" src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="50" />
+</a>
+</p>
 <p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
 
 ###### Demo
@@ -58,6 +62,7 @@ import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
 import VueSocketIO from 'vue-socket.io'
+import SocketIO from 'socket.io-client'
 
 const options = { path: '/my-app/' }; //Options object to pass into SocketIO
 
@@ -87,7 +92,6 @@ connection|String/Socket.io-client|`null`|Required|Websocket server url or socke
 vuex.store|Vuex|`null`|Optional|Vuex store instance
 vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
 vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
-vuex.options.useConnectionNamespace |Boolean|`false`|Optional|Use more than one connection namespace
 
 #### 🌈 Component Level Usage
 
@@ -124,6 +128,35 @@ this.sockets.subscribe('EVENT_NAME', (data) => {
 this.sockets.unsubscribe('EVENT_NAME');
 ```
 
+##### Defining handlers for events with special characters
+
+<p>If you want to handle 'kebab-case', or "event with space inside it" events, then you have to define it via the following way</p>
+
+``` javascript
+export default {
+  name: 'Test',
+  sockets: {
+    connect: function () {
+      console.log('socket to notification channel connected')
+    },
+  },
+
+  data () {
+    return {
+      something: [
+         // ... something here for the data if you need.
+      ]
+    }
+  },
+
+  mounted () {
+    this.$socket.subscribe("kebab-case", function(data) {
+        console.log("This event was fired by eg. sio.emit('kebab-case')", data)
+    })
+  }
+}
+```
+
 #### 🏆 Vuex Integration
 <p>When you set store parameter in installation, `Vue-Socket.io` will start sending events to Vuex store. If you set both prefix for vuex, you can use `actions` and `mutations` at the same time. But, best way to use is just `actions`</p>
 
@@ -146,41 +179,6 @@ export default new Vuex.Store({
         }
     }
 })
-```
-
-#### 🏆 Connection Namespace
-<p>When you need to handle more than one namespaced connection, you need to set the `useConnectionNamespace` property of
-the options object to true. What this does is telling the plugin that you are going to be using more than one namespaced connection and you want to put every connection in their own `$socket` key.</p>
-
-``` javascript
-import Vue from 'vue'
-import store from './store'
-import App from './App.vue'
-import VueSocketIO from 'vue-socket.io'
-
-Vue.use(new VueSocketIO({
-    debug: true,
-    connection: 'http://metinseylan.com:1992/mynamespace',
-    vuex: {
-        store,
-        options: {
-            useConnectionNamespace: true
-        }
-    },
-    options: { path: "/my-app/" } //Optional options
-}))
-
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app')
-```
-
-Then use it like this:
-
-``` javascript
-Vue.$socket.mynamespace.emit('emit_method', data)
 ```
 
 ## Stargazers over time
