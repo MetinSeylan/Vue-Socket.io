@@ -28,9 +28,9 @@ export default class VueSocketIO {
      */
     install(app){
 
-        app.config.globalProperties.$http = this.io;
-    app.config.globalProperties.$vueSocketIo = this;
-    app.mixin(Mixin);
+        app.config.globalProperties.$socket = this.io;
+        app.config.globalProperties.$vueSocketIo = this;
+        app.mixin(Mixin);
 
         Logger.info('Vue-Socket.io plugin enabled');
 
