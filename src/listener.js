@@ -60,7 +60,6 @@ export default class VueSocketIOListener {
      * Broadcast all events to vuejs environment
      */
     onEvent(event, args) {
-        console.log('onEvent', event);
         this.emitter.emit(event, args);
     }
 }
