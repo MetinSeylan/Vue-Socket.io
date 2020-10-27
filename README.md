@@ -89,8 +89,8 @@ new Vue({
 debug|Boolean|`false`|Optional|Enable logging for debug
 connection|String/Socket.io-client|`null`|Required|Websocket server url or socket.io-client instance
 vuex.store|Vuex|`null`|Optional|Vuex store instance
-vuex.actionPrefix|String|`null`|Optional|Prefix for emitting server side vuex actions
-vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex mutations
+vuex.actionPrefix|String/Function|`null`|Optional|Prefix for emitting server side vuex actions
+vuex.mutationPrefix|String/Function|`null`|Optional|Prefix for emitting server side vuex mutations
 
 #### 🌈 Component Level Usage
 
@@ -179,6 +179,109 @@ export default new Vuex.Store({
     }
 })
 ```
+
+#### 🏆 Connection Namespace
+
+``` javascript
+import Vue from 'vue'
+import store from './store'
+import App from './App.vue'
+import VueSocketIO from 'vue-socket.io'
+
+const app = SocketIO('http://localhost:1090', {
+  useConnectionNamespace: true,
+});
+
+const chat = SocketIO('http://localhost:1090/chat', {
+  useConnectionNamespace: true,
+  autoConnect: false,
+});
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: {
+        app,
+        chat
+    },
+    vuex: {
+        store,
+        actionPrefix: eventName => {
+          return (`SOCKET_` + eventName).toUpperCase();
+        },
+        mutationPrefix: eventName => {
+          return (`SOCKET_` + eventName).toUpperCase();
+        },
+    },
+    options: { path: "/my-app/" } //Optional options
+}))
+
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
+```
+
+Then use it like this:
+
+``` javascript
+new Vue({
+  sockets: {
+    app: {
+      connect: function() {
+        console.log('socket connected');
+      },
+      customEmit: function(data) {
+        console.log('this method was fired by the socket server');
+      },
+    },
+    chat: {
+      connect: function() {
+        console.log('socket connected');
+      },
+      customEmit: function(data) {
+        console.log('this method was fired by the socket server');
+      },
+    },
+  },
+  methods: {
+    clickAppButton: function(data) {
+      // $socket.app is socket.io-client instance
+      this.$socket.app.emit('emit_method', data);
+    },
+    clickChatButton: function(data) {
+      // $socket.chat is socket.io-client instance
+      this.$socket.chat.emit('emit_method', data);
+    },
+  },
+});
+
+```
+
+vuex
+
+``` javascript
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state: {},
+    mutations: {
+        "<MUTATION_PREFIX>_<MY_NAMESPACE>_<EVENT_NAME>"() {
+            // do something
+        }
+    },
+    actions: {
+        "<ACTION_PREFIX>_<MY_NAMESPACE>_<EVENT_NAME>"() {
+            // do something
+        }
+    }
+})
+```
+
+
 
 ## Stargazers over time
 
