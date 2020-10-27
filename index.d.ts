@@ -40,18 +40,24 @@ declare module 'vue/types/options' {
     }
 }
 
+type prefixFunc = (eventName: string) => string;
+
+type connectionSocket = {
+    [key: string]: SocketIOClient.Socket
+}
+
 export interface VueSocketOptions {
     debug?: boolean;
-    connection: string | SocketIOClient.Socket,
+    connection: string | SocketIOClient.Socket | connectionSocket,
     vuex?: {
         store?: Store<any>,
-        actionPrefix?: string,
-        mutationPrefix?: string,
+        actionPrefix?: string | prefixFunc,
+        mutationPrefix?: string | prefixFunc,
         options?: {
             useConnectionNamespace?: boolean
         }
     },
-        // type declarations for optional options
+    // type declarations for optional options
     options?:{
         path?: string;
     }
