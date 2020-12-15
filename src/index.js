@@ -11,11 +11,13 @@ export default class VueSocketIO {
      * @param io
      * @param vuex
      * @param debug
+     * @param darkMode
      * @param options
      */
-    constructor({connection, vuex, debug, options}){
+    constructor({connection, vuex, debug, darkMode, options}){
 
         Logger.debug = debug;
+        Logger.darkMode = darkMode || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         this.io = this.connect(connection, options);
         this.emitter = new Emitter(vuex);
         this.listener = new Listener(this.io, this.emitter);
