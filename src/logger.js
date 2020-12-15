@@ -10,7 +10,6 @@ export default new class VueSocketIOLogger {
     }
 
     info(text, data = '') {
-
         if(this.debug) {
             if (this.darkMode) {
                 window.console.info(this.prefix+`%c${text}`, 'color: #A9D341; font-weight: 600', 'color: #F7AC15', data);
