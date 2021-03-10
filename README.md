@@ -57,6 +57,7 @@ new Vue({
 ```
 
 ##### Using socket.io-client Instance
+###### For vue 2 
 ``` javascript
 import Vue from 'vue'
 import store from './store'
@@ -82,6 +83,31 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
+```
+
+###### For vue 3
+``` javascript
+import Vue from 'vue'
+import store from './store'
+import App from './App.vue'
+import VueSocketIO from 'vue-socket.io'
+import SocketIO from 'socket.io-client'
+
+const vueSocket = new VueSocketIO({
+    debug: true,
+    connection: SocketIO('http://metinseylan.com:1992', options), //options object is Optional
+    vuex: {
+        store,
+        actionPrefix: "SOCKET_",
+        mutationPrefix: "SOCKET_"
+    }
+});
+
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(vueSocket)
+	.mount('#app');
 ```
 
 **Parameters**|**Type's**|**Default**|**Required**|**Description**
