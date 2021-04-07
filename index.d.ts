@@ -28,6 +28,12 @@ declare module 'vue/types/vue' {
     }
 }
 
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $socket: SocketIOClient.Socket,
+    }
+}
+
 declare module 'vue/types/options' {
     interface ComponentOptions<
         V extends Vue,

@@ -39,7 +39,7 @@ export default {
     /**
      * unsubscribe when component unmounting
      */
-    beforeDestroy(){
+    beforeUnmount(){
 
         if(this.$options.sockets){
 
