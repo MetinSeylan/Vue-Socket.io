@@ -1,4 +1,4 @@
-export default {
+export default (isVue3) => ({
 
     /**
      *  Assign runtime callbacks
@@ -39,7 +39,7 @@ export default {
     /**
      * unsubscribe when component unmounting
      */
-    beforeUnmount(){
+    [isVue3 ? 'beforeUnmount' : 'beforeDestroy'](){
 
         if(this.$options.sockets){
 
@@ -53,4 +53,4 @@ export default {
 
     }
 
-}
+})
