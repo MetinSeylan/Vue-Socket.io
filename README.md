@@ -17,12 +17,12 @@
 	<img alt="Patreon" src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="50" />
 </a>
 </p>
-<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements<p>
+<p>Vue-Socket.io is a socket.io integration for Vuejs, easy to use, supporting Vuex and component level socket consumer managements.<p>
 
 ###### Demo
 - <a href="http://metinseylan.com/vuesocketio/" target="_blank">Chat Application</a>
 - <a href="http://metinseylan.com" target="_blank">Car Tracking Application</a>
-
+<p>You can also check my other npm library <a href="https://github.com/MetinSeylan/Nestjs-OpenTelemetry">Nestjs OpenTelemetry</a></p>
 <p>
 are you looking for old documentation? <a href="https://github.com/MetinSeylan/Vue-Socket.io/blob/master/docs/OLD_README.md">it's here</a>
 </p>
