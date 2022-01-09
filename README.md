@@ -94,7 +94,7 @@ vuex.mutationPrefix|String |`null`|Optional|Prefix for emitting server side vuex
 
 #### 🌈 Component Level Usage
 
-<p>If you want to listen socket events from component side, you need to add `sockets` object in Vue component, and every function will start to listen events, depends on object key</p>
+<p>If you want to listen socket events from component side, you need to add `sockets` object in Vue component. After that every function will start to listen events, depends on object key</p>
 
 ``` javascript
 new Vue({
