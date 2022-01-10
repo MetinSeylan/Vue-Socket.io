@@ -92,14 +92,14 @@ export default class EventEmitter{
     dispatchStore(event, args){
 
         if(this.store && this.store._actions){
-
-            let prefixed_event = this.actionPrefix + event;
+            //
+            let prefixed_event = this.actionPrefix.toLowerCase() + event;
 
             for (let key in this.store._actions) {
 
                 let action = key.split('/').pop();
 
-                if(action === prefixed_event) {
+                if(action.replace("_", "").toLowerCase() === prefixed_event.replace("_", "")) {
 
                     Logger.info(`Dispatching Action: ${key}, Data:`, args);
 
@@ -110,14 +110,14 @@ export default class EventEmitter{
             }
 
             if(this.mutationPrefix) {
-
+                // Converting native lowercase event names to uppercase is more Vuex compliant
                 let prefixed_event = this.mutationPrefix + event;
 
                 for (let key in this.store._mutations) {
 
                     let mutation = key.split('/').pop();
 
-                    if(mutation === prefixed_event) {
+                    if(mutation.replace("_", "").toLowerCase() === prefixed_event.replace("_", "")) {
 
                         Logger.info(`Commiting Mutation: ${key}, Data:`, args);
 
