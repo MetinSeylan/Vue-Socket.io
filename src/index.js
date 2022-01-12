@@ -33,12 +33,14 @@ export default class VueSocketIO {
         if (version >= 3) {
             Vue.config.globalProperties.$socket = this.io;
             Vue.config.globalProperties.$vueSocketIo = this;
+            Vue.mixin(Mixin(true));
+
         } else {
             Vue.prototype.$socket = this.io;
             Vue.prototype.$vueSocketIo = this;
+            Vue.mixin(Mixin(false));
         }
 
-        Vue.mixin(Mixin);
 
         Logger.info('Vue-Socket.io plugin enabled');
 
