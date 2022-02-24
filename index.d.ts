@@ -51,9 +51,12 @@ export interface VueSocketOptions {
             useConnectionNamespace?: boolean
         }
     },
-        // type declarations for optional options
+    // type declarations for optional options
     options?:{
-        path?: string;
+        path?: string,
+        transports?: Array<string>,
+        timeout?: number,
+        reconnection?: boolean
     }
 }
 
